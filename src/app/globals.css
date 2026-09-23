@@ -3,27 +3,39 @@
 @tailwind utilities;
 
 :root {
-  /* DARK THEME (Default) */
-  --bg: #0D0D0D;
-  --surface: #161816;
+  /* DARK THEME (Default) - Deep layered obsidian with structural depth */
+  --bg: #0A0A0A;
+  --surface: #141414;
   --ink: #F7F7F5;
-  --ink-soft: #A8ACA5;
+  --ink-soft: #A3A39E;
   --green: #3FA35F;
-  --green-soft: rgba(63, 163, 95, 0.14);
-  --line: rgba(247, 247, 245, 0.12);
+  --green-soft: rgba(63, 163, 95, 0.16);
+  --line: rgba(255, 255, 255, 0.08);
+
+  /* Glass tokens (Dark) */
+  --glass-bg: rgba(20, 20, 20, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --grid-color: rgba(255, 255, 255, 0.035);
 
   color-scheme: dark;
 }
 
 [data-theme='light'] {
-  /* LIGHT THEME (Toggle) */
-  --bg: #FDFDFC;
-  --surface: #F4F6F3;
-  --ink: #0D0D0D;
-  --ink-soft: #4A4D49;
-  --green: #1F7A3D;
-  --green-soft: #E6F0E8;
-  --line: rgba(13, 13, 13, 0.08);
+  /* LIGHT THEME (Toggle) - Tactile Warm Biscuit / Almond Linen */
+  --bg: #F5EFEB;          /* Warm biscuit base, soothing & tactile */
+  --surface: #ECE3DC;     /* Almond biscuit surface for layered contrast */
+  --ink: #1C1917;         /* Deep espresso-charcoal */
+  --ink-soft: #57534E;    /* Warm cocoa stone */
+  --green: #1B6636;       /* Deep workshop botanical green */
+  --green-soft: #DFEAD9;  /* Pale sage-biscuit tint */
+  --line: rgba(28, 25, 23, 0.08);
+
+  /* Glass tokens (Biscuit Light) */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.70);
+  --glass-highlight: rgba(255, 255, 255, 0.90);
+  --grid-color: rgba(28, 25, 23, 0.035);
 
   color-scheme: light;
 }
@@ -51,7 +63,16 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+/* Subtle Architectural Grid Structure for Background Depth */
+.bg-structure {
+  background-image: 
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 /* Fluid Auto-Adjusting Container Utility */
@@ -85,6 +106,34 @@ body {
   }
 }
 
+/* Apple Liquid Glass Container */
+.liquid-glass {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    inset 0 1px 1px 0 var(--glass-highlight),
+    0 20px 40px -15px rgba(0, 0, 0, 0.12);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass:hover {
+  box-shadow: 
+    inset 0 1px 1px 0 var(--glass-highlight),
+    0 30px 60px -20px rgba(0, 0, 0, 0.22);
+}
+
+/* Liquid Glass Capsule / Pill */
+.liquid-glass-pill {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 0 var(--glass-highlight);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Hairline border utilities */
 .hairline-b {
   border-bottom: 1px solid var(--line);
@@ -110,36 +159,25 @@ body {
 .display-title {
   font-family: var(--font-display), sans-serif;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
 }
 
 .display-heading {
   font-family: var(--font-display), sans-serif;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
 }
 
-/* Frosted Glass */
-.frosted-glass {
-  background-color: rgba(13, 13, 13, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-[data-theme='light'] .frosted-glass {
-  background-color: rgba(253, 253, 252, 0.85);
-}
-
-/* Focus states */
+/* Interactive focus rings */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
   outline: 2px solid var(--green);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* Smooth motion handling */

@@ -25,9 +25,13 @@ const config: Config = {
         sans: ['var(--font-sans)', 'Inter', 'sans-serif'],
       },
       borderRadius: {
-        '2xl': '1rem',
-        '3xl': '1.5rem',
-        '4xl': '2rem',
+        '2xl': '1.25rem',
+        '3xl': '1.75rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      transitionTimingFunction: {
+        apple: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       maxWidth: {
         site: '1536px',

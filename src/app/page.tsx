@@ -13,15 +13,15 @@ export default async function HomePage() {
 
   return (
     <div className="w-full">
-      {/* 1. Fluid Hero Section */}
+      {/* 1. Fluid Hero Section with Ambient Glow */}
       <Hero />
 
       {/* 2. Selected Works Showcase */}
-      <section className="w-full py-20 lg:py-28 hairline-b">
+      <section className="w-full py-20 lg:py-28 hairline-b relative">
         <div className="site-container">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)] mb-3">
+              <div className="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold text-[var(--green)] mb-3">
                 <span>Selected Works</span>
               </div>
               <h2 className="display-heading text-3xl sm:text-5xl text-[var(--ink)] tracking-tight">
@@ -30,18 +30,18 @@ export default async function HomePage() {
             </div>
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] bg-[var(--surface)]/70 hover:bg-[var(--surface)] hairline-all transition-all rounded-full hover:scale-[1.02] active:scale-[0.98] self-start md:self-end"
+              className="liquid-glass-pill inline-flex items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple rounded-full hover:scale-[1.03] active:scale-[0.97] self-start md:self-end"
             >
               View Full Portfolio Archive
             </Link>
           </div>
 
-          {/* Project Grid */}
+          {/* Liquid Glass Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProjects.map((project) => (
               <article
                 key={project.id}
-                className="group flex flex-col justify-between bg-[var(--bg)] hairline-all hover:border-[var(--green)]/50 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-300 p-6 rounded-3xl"
+                className="group flex flex-col justify-between liquid-glass hover:border-[var(--green)]/50 hover:scale-[1.015] hover:shadow-2xl transition-all duration-500 ease-apple p-7 rounded-3xl"
               >
                 <div>
                   {/* Thumbnail */}
@@ -52,7 +52,7 @@ export default async function HomePage() {
                         alt={project.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover transition-transform duration-700 ease-apple group-hover:scale-105"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-xs text-[var(--ink-soft)]">
@@ -66,7 +66,7 @@ export default async function HomePage() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[11px] font-medium px-3 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
+                        className="text-[11px] font-medium px-3.5 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
                       >
                         {tag}
                       </span>
@@ -74,7 +74,7 @@ export default async function HomePage() {
                   </div>
 
                   {/* Title & Hook */}
-                  <h3 className="display-heading text-xl sm:text-2xl text-[var(--ink)] group-hover:text-[var(--green)] transition-colors mb-2">
+                  <h3 className="display-heading text-xl sm:text-2xl text-[var(--ink)] group-hover:text-[var(--green)] transition-colors duration-300 mb-2">
                     <Link href={`/projects/${project.slug}`}>
                       {project.title}
                     </Link>
@@ -90,7 +90,7 @@ export default async function HomePage() {
                     {project.tech_stack.slice(0, 3).map((tech) => (
                       <span
                         key={tech}
-                        className="text-[10px] text-[var(--ink-soft)] font-mono px-2 py-0.5 rounded-md bg-[var(--surface)]"
+                        className="text-[10px] text-[var(--ink-soft)] font-mono px-2.5 py-0.5 rounded-full bg-[var(--surface)]"
                       >
                         {tech}
                       </span>
@@ -109,11 +109,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. Apple-Style Bento Grid: "The Workshop Method" */}
-      <section className="w-full py-20 lg:py-28 bg-[var(--surface)] hairline-b">
-        <div className="site-container">
+      {/* 3. Apple-Style Liquid Glass Bento Grid: "The Workshop Method" */}
+      <section className="w-full py-20 lg:py-28 bg-structure hairline-b relative">
+        <div className="site-container relative z-10">
           <div className="max-w-3xl mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg)] hairline-all text-xs font-semibold text-[var(--green)] mb-3 shadow-sm">
+            <div className="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold text-[var(--green)] mb-3 shadow-sm">
               <span>The Engineering Method</span>
             </div>
             <h2 className="display-heading text-3xl sm:text-5xl text-[var(--ink)] tracking-tight mb-4">
@@ -125,15 +125,15 @@ export default async function HomePage() {
             </p>
           </div>
 
-          {/* Bento Grid */}
+          {/* Bento Grid with Liquid Glass cards */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Bento Card 1: 48h Prototyping */}
-            <div className="md:col-span-7 bg-[var(--bg)] hairline-all rounded-3xl p-8 sm:p-10 flex flex-col justify-between shadow-sm">
+            <div className="md:col-span-7 liquid-glass rounded-3xl p-8 sm:p-10 flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500 ease-apple">
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-2xl bg-[var(--surface)] hairline-all flex items-center justify-center text-[var(--green)]">
-                  <Terminal className="w-5 h-5 stroke-[2]" />
+                <div className="w-12 h-12 rounded-2xl bg-[var(--surface)] hairline-all flex items-center justify-center text-[var(--green)] shadow-inner">
+                  <Terminal className="w-6 h-6 stroke-[2]" />
                 </div>
-                <h3 className="display-heading text-2xl text-[var(--ink)]">
+                <h3 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
                   48-Hour Midnight Prototyping
                 </h3>
                 <p className="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed max-w-xl">
@@ -143,20 +143,20 @@ export default async function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-8 p-4 rounded-2xl bg-[var(--surface)]/60 hairline-all font-mono text-xs text-[var(--ink-soft)] space-y-1">
+              <div className="mt-8 p-5 rounded-2xl bg-[var(--surface)]/70 hairline-all font-mono text-xs text-[var(--ink-soft)] space-y-1.5 shadow-inner">
                 <p className="text-[var(--green)] font-semibold">// Live Workshop Compilation</p>
                 <p>$ git checkout -b feature/interactive-physics</p>
-                <p className="text-[var(--ink)]">$ pnpm build --benchmark: 0.74s [PASS]</p>
+                <p className="text-[var(--ink)] font-semibold">$ pnpm build --benchmark: 0.74s [PASS]</p>
               </div>
             </div>
 
             {/* Bento Card 2: Zero-Bloat Performance */}
-            <div className="md:col-span-5 bg-[var(--bg)] hairline-all rounded-3xl p-8 sm:p-10 flex flex-col justify-between shadow-sm">
+            <div className="md:col-span-5 liquid-glass rounded-3xl p-8 sm:p-10 flex flex-col justify-between hover:scale-[1.01] transition-transform duration-500 ease-apple">
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-2xl bg-[var(--surface)] hairline-all flex items-center justify-center text-[var(--green)]">
-                  <Zap className="w-5 h-5 stroke-[2]" />
+                <div className="w-12 h-12 rounded-2xl bg-[var(--surface)] hairline-all flex items-center justify-center text-[var(--green)] shadow-inner">
+                  <Zap className="w-6 h-6 stroke-[2]" />
                 </div>
-                <h3 className="display-heading text-2xl text-[var(--ink)]">
+                <h3 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
                   Sub-Second Performance
                 </h3>
                 <p className="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed">
@@ -167,24 +167,24 @@ export default async function HomePage() {
 
               <div className="mt-8 pt-6 hairline-t flex items-baseline justify-between">
                 <div>
-                  <span className="display-title text-4xl text-[var(--ink)] font-bold">98+</span>
-                  <span className="block text-xs text-[var(--ink-soft)] mt-0.5">Average Lighthouse Score</span>
+                  <span className="display-title text-4xl sm:text-5xl text-[var(--ink)] font-bold">98+</span>
+                  <span className="block text-xs text-[var(--ink-soft)] mt-1">Average Lighthouse Score</span>
                 </div>
                 <div className="text-right">
-                  <span className="display-title text-4xl text-[var(--green)] font-bold">&lt;0.8s</span>
-                  <span className="block text-xs text-[var(--ink-soft)] mt-0.5">Global Edge TTFB</span>
+                  <span className="display-title text-4xl sm:text-5xl text-[var(--green)] font-bold">&lt;0.8s</span>
+                  <span className="block text-xs text-[var(--ink-soft)] mt-1">Global Edge TTFB</span>
                 </div>
               </div>
             </div>
 
             {/* Bento Card 3: Complete Ownership */}
-            <div className="md:col-span-12 bg-[var(--bg)] hairline-all rounded-3xl p-8 sm:p-10 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="md:col-span-12 liquid-glass rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:scale-[1.005] transition-transform duration-500 ease-apple">
               <div className="space-y-2 max-w-2xl">
                 <div className="flex items-center gap-2 text-[var(--green)] text-xs font-semibold uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4" />
                   <span>Direct Delivery Guarantee</span>
                 </div>
-                <h3 className="display-heading text-2xl text-[var(--ink)]">
+                <h3 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
                   Clean Handover & Full Code Ownership
                 </h3>
                 <p className="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed">
@@ -196,7 +196,7 @@ export default async function HomePage() {
               <div className="shrink-0">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all rounded-full shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all duration-300 ease-apple rounded-full shadow-lg shadow-[var(--green)]/20 hover:scale-[1.03] active:scale-[0.97]"
                 >
                   Commission a Build
                 </Link>
@@ -207,11 +207,11 @@ export default async function HomePage() {
       </section>
 
       {/* 4. Cinematic Lab Transmission Reel */}
-      <section className="w-full py-20 lg:py-28 hairline-b">
+      <section className="w-full py-20 lg:py-28 hairline-b relative">
         <div className="site-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)]">
+              <div className="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold text-[var(--green)]">
                 <span>Lab Transmission</span>
               </div>
               <h2 className="display-heading text-3xl sm:text-5xl text-[var(--ink)] tracking-tight">
@@ -227,7 +227,7 @@ export default async function HomePage() {
                   href="https://youtube.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--ink)] hover:text-[var(--green)] transition-all"
+                  className="liquid-glass-pill inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple hover:scale-[1.02]"
                 >
                   <span>Watch on YouTube Shorts</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -236,13 +236,13 @@ export default async function HomePage() {
             </div>
 
             <div className="lg:col-span-7">
-              <div className="relative aspect-video w-full bg-[var(--surface)] hairline-all rounded-3xl overflow-hidden shadow-xl">
+              <div className="relative aspect-video w-full liquid-glass rounded-3xl p-2.5 overflow-hidden shadow-2xl">
                 <iframe
                   src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&rel=0&playsinline=1"
                   title="Nightbuild Studio Reel"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="w-full h-full border-0"
+                  className="w-full h-full rounded-2xl border-0"
                 />
               </div>
             </div>
@@ -251,10 +251,10 @@ export default async function HomePage() {
       </section>
 
       {/* 5. Apple-Style CTA Banner */}
-      <section className="w-full py-20 lg:py-28 bg-[var(--bg)]">
+      <section className="w-full py-20 lg:py-28 relative">
         <div className="site-container">
-          <div className="rounded-3xl bg-[var(--surface)] hairline-all p-10 sm:p-16 lg:p-20 text-center max-w-5xl mx-auto space-y-8 shadow-sm">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--bg)] hairline-all text-xs font-semibold text-[var(--green)]">
+          <div className="liquid-glass rounded-3xl p-10 sm:p-16 lg:p-20 text-center max-w-5xl mx-auto space-y-8 shadow-2xl">
+            <div className="liquid-glass-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold text-[var(--green)] shadow-sm">
               <span>Ready for Launch</span>
             </div>
             <h2 className="display-title text-3xl sm:text-5xl lg:text-6xl text-[var(--ink)] max-w-3xl mx-auto leading-tight">
@@ -268,13 +268,13 @@ export default async function HomePage() {
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all rounded-full shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all duration-300 ease-apple rounded-full shadow-lg shadow-[var(--green)]/20 hover:scale-[1.03] active:scale-[0.97]"
               >
                 Inquire With The Studio
               </Link>
               <Link
                 href="/projects"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] bg-[var(--bg)] hover:bg-[var(--surface)] hairline-all transition-all rounded-full hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto liquid-glass-pill inline-flex items-center justify-center px-9 py-4 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple rounded-full hover:scale-[1.03] active:scale-[0.97]"
               >
                 Inspect Portfolio
               </Link>

@@ -12,36 +12,42 @@ export function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
-        delayChildren: shouldReduceMotion ? 0 : 0.04,
+        staggerChildren: shouldReduceMotion ? 0 : 0.09,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
       },
     },
   };
 
   const itemVariants = {
-    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 },
+    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.6,
+        duration: shouldReduceMotion ? 0 : 0.7,
         ease: [0.16, 1, 0.3, 1],
       },
     },
   };
 
   return (
-    <section className="relative w-full pt-16 sm:pt-24 lg:pt-32 pb-16 lg:pb-24 overflow-hidden hairline-b">
-      <div className="site-container">
+    <section className="relative w-full pt-16 sm:pt-24 lg:pt-32 pb-20 lg:pb-28 overflow-hidden hairline-b bg-structure">
+      {/* Ambient Atmospheric Glow */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[720px] h-[480px] bg-[var(--green)]/12 blur-[140px] rounded-full" 
+      />
+
+      <div className="site-container relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="w-full space-y-10"
         >
-          {/* Status Badge (Apple pill format) */}
+          {/* Status Badge (Liquid Glass pill) */}
           <motion.div variants={itemVariants} className="inline-flex items-center">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[var(--surface)] hairline-all text-xs font-medium text-[var(--ink-soft)] shadow-sm">
+            <div className="liquid-glass-pill inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-medium text-[var(--ink-soft)] shadow-sm hover:scale-[1.02] transition-transform duration-300">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--green)] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--green)]" />
@@ -75,39 +81,41 @@ export function Hero() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all rounded-full shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all duration-300 ease-apple rounded-full shadow-lg shadow-[var(--green)]/20 hover:scale-[1.03] active:scale-[0.97]"
             >
               Initiate a Build
             </Link>
 
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] bg-[var(--surface)]/70 hover:bg-[var(--surface)] hairline-all transition-all rounded-full hover:scale-[1.02] active:scale-[0.98]"
+              className="liquid-glass-pill inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple rounded-full hover:scale-[1.03] active:scale-[0.97]"
             >
               Explore Project Archive
             </Link>
           </motion.div>
 
-          {/* Studio Telemetry Row (Spans full width dynamically) */}
+          {/* Liquid Glass Workshop Telemetry Row */}
           <motion.div
             variants={itemVariants}
-            className="pt-8 mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 p-6 rounded-2xl bg-[var(--surface)]/50 hairline-all text-xs"
+            className="pt-2 mt-8"
           >
-            <div>
-              <p className="font-semibold text-[var(--ink)]">Active Workshop</p>
-              <p className="text-[var(--ink-soft)] mt-0.5">02:00 AM Sprint Hours</p>
-            </div>
-            <div>
-              <p className="font-semibold text-[var(--ink)]">Architecture</p>
-              <p className="text-[var(--ink-soft)] mt-0.5">Direct Code & Shaders</p>
-            </div>
-            <div>
-              <p className="font-semibold text-[var(--ink)]">CS Cohort</p>
-              <p className="text-[var(--ink-soft)] mt-0.5">Senior Systems Lab</p>
-            </div>
-            <div>
-              <p className="font-semibold text-[var(--ink)]">Delivery Guarantee</p>
-              <p className="text-[var(--ink-soft)] mt-0.5">100% Repository Handover</p>
+            <div className="liquid-glass rounded-3xl p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs">
+              <div className="space-y-1">
+                <p className="font-semibold text-[var(--ink)]">Active Workshop</p>
+                <p className="text-[var(--ink-soft)]">02:00 AM Sprint Hours</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-semibold text-[var(--ink)]">Architecture</p>
+                <p className="text-[var(--ink-soft)]">Direct Code & Shaders</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-semibold text-[var(--ink)]">CS Cohort</p>
+                <p className="text-[var(--ink-soft)]">Senior Systems Lab</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-semibold text-[var(--ink)]">Delivery Guarantee</p>
+                <p className="text-[var(--ink-soft)]">100% Repository Handover</p>
+              </div>
             </div>
           </motion.div>
         </motion.div>

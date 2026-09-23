@@ -23,20 +23,20 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
         );
 
   return (
-    <div className="w-full space-y-10">
-      {/* Apple-style Segmented Pill Filter */}
+    <div className="w-full space-y-12">
+      {/* Apple Liquid Glass Segmented Pill Filter */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 hairline-b pb-8">
-        <div className="inline-flex flex-wrap items-center p-1.5 rounded-full bg-[var(--surface)] hairline-all gap-1 shadow-sm">
+        <div className="liquid-glass-pill inline-flex flex-wrap items-center p-1.5 rounded-full gap-1.5 shadow-md">
           {FILTER_TAGS.map((tag) => {
             const isSelected = selectedTag === tag;
             return (
               <button
                 key={tag}
                 onClick={() => setSelectedTag(tag)}
-                className={`px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
+                className={`px-5 py-2 text-xs font-medium rounded-full transition-all duration-300 ease-apple ${
                   isSelected
-                    ? 'bg-[var(--bg)] text-[var(--ink)] shadow-sm font-semibold'
-                    : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'
+                    ? 'bg-[var(--ink)] text-[var(--bg)] shadow-md font-semibold scale-[1.02]'
+                    : 'text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/40'
                 }`}
               >
                 {tag}
@@ -50,9 +50,9 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
         </span>
       </div>
 
-      {/* Responsive Auto-Adjusting Grid */}
+      {/* Responsive Auto-Adjusting Liquid Glass Grid */}
       {filteredProjects.length === 0 ? (
-        <div className="py-24 text-center rounded-3xl bg-[var(--surface)]/50 hairline-all p-8">
+        <div className="py-24 text-center liquid-glass rounded-3xl p-8">
           <p className="text-sm text-[var(--ink-soft)]">
             No projects found under this classification tag.
           </p>
@@ -62,7 +62,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
           {filteredProjects.map((project) => (
             <article
               key={project.id}
-              className="group flex flex-col justify-between bg-[var(--bg)] hairline-all hover:border-[var(--green)]/50 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-300 p-6 rounded-3xl"
+              className="group flex flex-col justify-between liquid-glass hover:border-[var(--green)]/50 hover:scale-[1.015] hover:shadow-2xl transition-all duration-500 ease-apple p-7 rounded-3xl"
             >
               <div>
                 {/* Media Preview */}
@@ -73,7 +73,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 ease-apple group-hover:scale-105"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-xs text-[var(--ink-soft)]">
@@ -87,7 +87,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] font-medium px-3 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
+                      className="text-[11px] font-medium px-3.5 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
                     >
                       {tag}
                     </span>
@@ -95,7 +95,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                 </div>
 
                 {/* Title & Hook */}
-                <h3 className="display-heading text-xl sm:text-2xl text-[var(--ink)] group-hover:text-[var(--green)] transition-colors mb-2">
+                <h3 className="display-heading text-xl sm:text-2xl text-[var(--ink)] group-hover:text-[var(--green)] transition-colors duration-300 mb-2">
                   <Link href={`/projects/${project.slug}`}>
                     {project.title}
                   </Link>
@@ -111,7 +111,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                   {project.tech_stack.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="text-[10px] text-[var(--ink-soft)] font-mono px-2 py-0.5 rounded-md bg-[var(--surface)]"
+                      className="text-[10px] text-[var(--ink-soft)] font-mono px-2.5 py-0.5 rounded-full bg-[var(--surface)]"
                     >
                       {tech}
                     </span>
@@ -124,7 +124,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                       href={project.live_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[var(--ink-soft)] hover:text-[var(--green)] transition-colors"
+                      className="p-1.5 rounded-full hover:bg-[var(--surface)] text-[var(--ink-soft)] hover:text-[var(--green)] transition-colors"
                       aria-label={`Open live site for ${project.title}`}
                     >
                       <ExternalLink className="w-3.5 h-3.5" />

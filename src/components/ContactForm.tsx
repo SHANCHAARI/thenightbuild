@@ -70,7 +70,7 @@ export function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-[var(--surface)] hairline-all rounded-3xl p-8 sm:p-12 space-y-6 shadow-sm">
+      <div className="liquid-glass rounded-3xl p-8 sm:p-12 space-y-6 shadow-2xl">
         <div className="flex items-center gap-3 text-[var(--green)]">
           <CheckCircle2 className="w-6 h-6 stroke-[2]" />
           <span className="text-xs font-mono uppercase tracking-wider font-bold">
@@ -93,7 +93,7 @@ export function ContactForm() {
         <div className="pt-4 hairline-t">
           <button
             onClick={handleReset}
-            className="inline-flex items-center px-6 py-2.5 rounded-full bg-[var(--bg)] hairline-all text-xs font-semibold text-[var(--ink)] hover:text-[var(--green)] transition-all shadow-sm"
+            className="liquid-glass-pill inline-flex items-center px-7 py-3 rounded-full text-xs font-semibold text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple hover:scale-[1.03]"
           >
             Submit Another Inquiry
           </button>
@@ -103,9 +103,9 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[var(--surface)]/50 hairline-all rounded-3xl p-8 sm:p-12 space-y-6 shadow-sm">
+    <form onSubmit={handleSubmit} className="liquid-glass rounded-3xl p-8 sm:p-12 space-y-6 shadow-2xl">
       {status === 'error' && (
-        <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs rounded-2xl">
+        <div className="flex items-center gap-2 p-3.5 bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs rounded-2xl">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{errorMessage}</span>
         </div>
@@ -123,7 +123,7 @@ export function ContactForm() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder="e.g. Elena Rostova / Lumina AI"
-          className="w-full px-4 py-3.5 text-sm bg-[var(--bg)] hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-colors shadow-sm"
+          className="w-full px-4 py-3.5 text-sm bg-[var(--surface)]/50 hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-all duration-300 ease-apple shadow-inner"
         />
       </div>
 
@@ -139,7 +139,7 @@ export function ContactForm() {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           placeholder="e.g. elena@lumina-lab.org"
-          className="w-full px-4 py-3.5 text-sm bg-[var(--bg)] hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-colors shadow-sm"
+          className="w-full px-4 py-3.5 text-sm bg-[var(--surface)]/50 hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-all duration-300 ease-apple shadow-inner"
         />
       </div>
 
@@ -153,7 +153,7 @@ export function ContactForm() {
             id="project_type"
             value={formData.project_type}
             onChange={(e) => setFormData({ ...formData, project_type: e.target.value })}
-            className="w-full px-4 py-3.5 text-sm bg-[var(--bg)] hairline-all text-[var(--ink)] focus:border-[var(--green)] rounded-2xl transition-colors cursor-pointer appearance-none shadow-sm"
+            className="w-full px-4 py-3.5 text-sm bg-[var(--surface)]/50 hairline-all text-[var(--ink)] focus:border-[var(--green)] rounded-2xl transition-all duration-300 ease-apple cursor-pointer appearance-none shadow-inner"
           >
             {PROJECT_TYPES.map((type) => (
               <option key={type} value={type} className="bg-[var(--bg)] text-[var(--ink)]">
@@ -179,7 +179,7 @@ export function ContactForm() {
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Tell us what you are building, the unconventional elements, and any target deadlines..."
-          className="w-full px-4 py-3.5 text-sm bg-[var(--bg)] hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-colors resize-y shadow-sm"
+          className="w-full px-4 py-3.5 text-sm bg-[var(--surface)]/50 hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-all duration-300 ease-apple resize-y shadow-inner"
         />
       </div>
 
@@ -188,7 +188,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 disabled:opacity-50 transition-all rounded-full shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-9 py-4 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 disabled:opacity-50 transition-all duration-300 ease-apple rounded-full shadow-lg shadow-[var(--green)]/25 hover:scale-[1.03] active:scale-[0.97]"
         >
           {status === 'submitting' ? (
             <>

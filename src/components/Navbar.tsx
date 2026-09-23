@@ -18,19 +18,19 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full frosted-glass hairline-b transition-colors duration-200">
-      <div className="site-container h-18 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full pt-4 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto liquid-glass-pill rounded-full px-5 sm:px-7 py-3 flex items-center justify-between shadow-lg">
         {/* Brand Wordmark */}
         <Link
           href="/"
-          className="group flex items-center gap-2 text-[var(--ink)] font-display text-base sm:text-lg tracking-tight font-bold hover:opacity-90 transition-opacity"
+          className="group flex items-center gap-2.5 text-[var(--ink)] font-display text-sm sm:text-base tracking-tight font-bold hover:opacity-85 transition-opacity"
         >
           <span>Nightbuild Studio</span>
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--green)] group-hover:scale-125 transition-transform" />
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--green)] group-hover:scale-150 transition-transform duration-300" />
         </Link>
 
         {/* Apple-style Centered Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 bg-[var(--surface)]/70 hairline-all rounded-full px-4 py-1.5">
+        <nav className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map((link) => {
             const isActive =
               link.href === '/'
@@ -40,10 +40,10 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
+                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-300 ease-apple ${
                   isActive
-                    ? 'bg-[var(--bg)] text-[var(--ink)] shadow-sm font-semibold'
-                    : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'
+                    ? 'bg-[var(--ink)] text-[var(--bg)] shadow-sm font-semibold'
+                    : 'text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50'
                 }`}
               >
                 {link.label}
@@ -57,7 +57,7 @@ export function Navbar() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all rounded-full shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all duration-300 ease-apple rounded-full shadow-sm hover:scale-[1.03] active:scale-[0.97]"
           >
             Start a Build
           </Link>
@@ -69,7 +69,7 @@ export function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
-            className="p-2 text-[var(--ink)] hover:text-[var(--green)] border border-[var(--line)] rounded-full transition-colors"
+            className="p-2 text-[var(--ink)] hover:text-[var(--green)] rounded-full transition-colors"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -78,7 +78,7 @@ export function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden w-full bg-[var(--bg)] hairline-b px-6 py-6 transition-all duration-200">
+        <div className="lg:hidden max-w-7xl mx-auto mt-3 liquid-glass rounded-3xl p-6 transition-all duration-300 ease-apple">
           <nav className="flex flex-col gap-3">
             {NAV_LINKS.map((link) => {
               const isActive =
