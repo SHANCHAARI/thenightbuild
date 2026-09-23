@@ -43,8 +43,8 @@ We established a single rule: **our portfolio is our only marketing**. Every hou
 ### 1. ⚡ The Midnight Architect (`/blueprint`)
 An interactive, self-serve project scoping and architecture estimation engine:
 - **Archetype Selector**: Tailor estimates across commercial MVPs, CS capstones, and creative portfolios.
-- **Dynamic Stack Configurator**: Toggle Supabase PostgreSQL, Gemini AI Gateways, Stripe rails, and WebSocket engines in real time.
-- **Instant Live Output**: Calculates realistic sprint timelines, engineering complexity scores (1.0 to 5.0), and fixed investment brackets with zero sales pressure.
+- **Dynamic Stack Configurator**: Toggle Supabase PostgreSQL, Gemini AI Gateways, Razorpay rails, and WebSocket engines in real time.
+- **Instant Live Output**: Calculates realistic sprint timelines, engineering complexity scores (1.0 to 5.0), and fixed investment brackets in INR with zero sales pressure.
 - **AI Architecture Spec Generator**: Generates exportable markdown architectural blueprints with 1 click.
 - **One-Click Inquiry Handoff**: Transfers calculated scope directly to our lead intake queue.
 

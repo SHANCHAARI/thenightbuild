@@ -8,7 +8,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 pb-12 hairline-b">
           {/* Studio Hook */}
           <div className="md:col-span-6 space-y-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-xl bg-black flex items-center justify-center text-white border border-[var(--green)]/50 shadow-sm">
+                <svg
+                  viewBox="0 0 100 60"
+                  fill="currentColor"
+                  className="w-4 h-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M50 10 C46 18, 43 21, 37 22 C33 17, 27 15, 19 14 C23 21, 23 27, 20 33 C12 33, 4 29, 0 22 C2 36, 10 45, 24 49 C20 55, 21 59, 26 60 C32 53, 38 49, 44 48 C47 50, 48 53, 50 56 C52 53, 53 50, 56 48 C62 49, 68 53, 74 60 C79 59, 80 55, 76 49 C90 45, 98 36, 100 22 C96 29, 88 33, 80 33 C77 27, 77 21, 81 14 C73 15, 67 17, 63 22 C57 21, 54 18, 50 10 Z" />
+                </svg>
+              </div>
               <span className="font-display text-lg font-bold tracking-tight text-[var(--ink)]">
                 Nightbuild Studio
               </span>

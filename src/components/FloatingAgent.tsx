@@ -59,11 +59,11 @@ const OFFLINE_REPLIES: Record<string, string[]> = {
     "Depends what you want to see:\n\n• Distributed systems? → **Chronos**\n• Edge-rendered commerce? → **Vesperal Atelier**\n• Real-time audio/DSP? → **Aetherform**\n\nAll three have full write-ups under `/projects`, and `/blueprint` can estimate a build like them for you.",
   ],
   pricing: [
-    "We offer transparent, fixed-bracket sprint pricing without hidden agency markup. CS capstones typically land between **$1,800–$3,400**, while commercial MVPs run **$4,200–$9,600**. The interactive estimator on `/blueprint` gives you a real number in real time.",
-    "Pricing is bracketed, not hourly: capstones around $1,800–$3,400, commercial MVPs around $4,200–$9,600, depending on complexity score and sprint velocity. Feed your feature list into `/blueprint` for an instant quote.",
-    "Two fixed brackets: **CS capstones $1,800–$3,400** and **commercial MVPs $4,200–$9,600**. Complexity, stack toggles, and velocity all shift the final number — the `/blueprint` tool calculates it live.",
-    "No hourly billing, no surprise invoices — fixed sprint brackets only. Capstones sit in the $1,800–$3,400 band, commercial MVPs in the $4,200–$9,600 band. Want precision? The Midnight Architect at `/blueprint` prices your exact feature list.",
-    "Short answer: capstones $1,800–$3,400, MVPs $4,200–$9,600.\n\nLonger answer: it depends on complexity score (1–5), stack choices (Postgres, AI gateway, WebSockets), and sprint velocity. All three are adjustable in the live calculator at `/blueprint`.",
+    "We offer transparent, fixed-bracket sprint pricing in INR without hidden agency markup. CS capstones typically range between **₹8,000–₹18,000** (delivered in ~4–7 days), while commercial MVPs range between **₹35,000–₹1,40,000**. Try our interactive estimator on `/blueprint` for a real-time calculation in INR!",
+    "Pricing is bracketed, not hourly: capstones around ₹8,000–₹18,000 with rapid 4–7 day delivery, commercial MVPs around ₹35,000–₹1,40,000, depending on complexity score and sprint velocity. Feed your feature list into `/blueprint` for an instant INR quote.",
+    "Two fixed brackets: **CS capstones ₹8,000–₹18,000 (~4–7 days)** and **commercial MVPs ₹35,000–₹1,40,000**. Complexity, stack toggles, and velocity all shift the final number — the `/blueprint` tool calculates it live in rupees.",
+    "No hourly billing, no surprise invoices — fixed sprint brackets only, always quoted in Indian Rupees. Capstones sit in the ₹8,000–₹18,000 band (most ship in under two weeks), commercial MVPs in the ₹35,000–₹1,40,000 band. The Midnight Architect at `/blueprint` prices your exact feature list.",
+    "Short answer: capstones ₹8,000–₹18,000 in ~4–7 days, MVPs ₹35,000–₹1,40,000.\n\nLonger answer: it depends on complexity score (1–5), stack choices (Postgres, AI gateway, Razorpay rails, WebSockets), and sprint velocity. All three are adjustable in the live calculator at `/blueprint`.",
   ],
   general: [
     "We are an independent creative engineering agency run by computer science students — bespoke web platforms, research dashboards, and capstones with sub-second execution. Want the project archive, the team, or a direct WhatsApp line?",
