@@ -9,6 +9,7 @@ import { Menu, X } from 'lucide-react';
 const NAV_LINKS = [
   { href: '/', label: 'Overview' },
   { href: '/projects', label: 'Projects' },
+  { href: '/blueprint', label: 'Blueprint', badge: 'Tool' },
   { href: '/about', label: 'Studio' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -40,13 +41,20 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-300 ease-apple ${
+                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-300 ease-apple flex items-center gap-1.5 ${
                   isActive
                     ? 'bg-[var(--ink)] text-[var(--bg)] shadow-sm font-semibold'
                     : 'text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--surface)]/50'
                 }`}
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.badge && (
+                  <span className={`text-[9px] font-mono px-1.5 py-0.2 rounded-full uppercase tracking-wider ${
+                    isActive ? 'bg-[var(--bg)] text-[var(--ink)]' : 'bg-[var(--green-soft)] text-[var(--green)] font-bold'
+                  }`}>
+                    {link.badge}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -96,7 +104,14 @@ export function Navbar() {
                       : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'
                   }`}
                 >
-                  <span>{link.label}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--green-soft)] text-[var(--green)] font-semibold uppercase">
+                        {link.badge}
+                      </span>
+                    )}
+                  </div>
                   {isActive && <span className="w-2 h-2 rounded-full bg-[var(--green)]" />}
                 </Link>
               );

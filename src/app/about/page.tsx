@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Github, Twitter, Globe } from 'lucide-react';
+import { Github, Twitter, Globe, Linkedin, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'About The Studio — Nightbuild Studio',
@@ -13,6 +13,7 @@ interface TeamMember {
   name: string;
   role: string;
   focus: string;
+  linkedin?: string;
   github?: string;
   twitter?: string;
   website?: string;
@@ -20,25 +21,32 @@ interface TeamMember {
 
 const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: 'Kaelen Vance',
-    role: 'Co-Founder & Creative Systems Lead',
-    focus: 'WebGL shaders, Web Audio DSP, and high-performance tactile interfaces.',
+    name: 'Nirmal Kumar',
+    role: 'Co-Founder & Systems / Full-Stack Engineer',
+    focus: 'Next.js architecture, edge services, API integration, and full-stack performance.',
+    linkedin: 'https://www.linkedin.com/in/nirmal-kumar-a43a56392',
     github: 'https://github.com',
-    twitter: 'https://twitter.com',
   },
   {
-    name: 'Mira Thorne',
-    role: 'Co-Founder & Architecture Lead',
-    focus: 'Distributed systems, Next.js App Router, edge runtimes, and database design.',
+    name: 'Pusarla Aakash',
+    role: 'Co-Founder & Creative Technologist',
+    focus: 'Interactive UI systems, motion choreography, responsive design systems, and frontend craft.',
+    linkedin: 'https://www.linkedin.com/in/pusarla-aakash-79b9a9392?utm_source=share_via&utm_content=profile&utm_medium=member_android',
     github: 'https://github.com',
-    website: 'https://thenightbuild.dev',
   },
   {
-    name: 'Devin Zhao',
-    role: 'Creative Developer & Capstone Engineer',
-    focus: 'Wasm compilation, micro-interactions, hardware simulations, and typography.',
+    name: 'Vidya Sagar',
+    role: 'Co-Founder & Backend / Platform Engineer',
+    focus: 'Cloud architecture, distributed workflows, database design, and algorithmic systems.',
+    linkedin: 'https://www.linkedin.com/in/vidyasagarcodes/',
     github: 'https://github.com',
-    twitter: 'https://twitter.com',
+  },
+  {
+    name: 'Pusarla Manoj Kumar',
+    role: 'Co-Founder & Cloud Infrastructure / Security Lead',
+    focus: 'Cloud security protocols, edge deployment automation, infrastructure hardening, and CI/CD pipelines.',
+    linkedin: 'https://www.linkedin.com/in/pusarla-manoj-kumar-b3454a3b3',
+    github: 'https://github.com',
   },
 ];
 
@@ -58,10 +66,10 @@ export default function AboutPage() {
 
           <div className="space-y-6 text-base sm:text-xl text-[var(--ink-soft)] leading-relaxed font-normal">
             <p>
-              Nightbuild Studio was founded by a collective of final-year computer science students
+              Nightbuild Studio was founded by a collective of computer science students
               who grew restless watching agencies churn out identical, beige corporate templates.
               We noticed two worlds that desperately needed each other: visionary founders who
-              wanted unconventional web presence, and senior CS researchers building groundbreaking
+              wanted unconventional web presence, and CS researchers building groundbreaking
               capstone engines without an interface worthy of their code.
             </p>
             <p>
@@ -125,55 +133,47 @@ export default function AboutPage() {
               Engineers & creative technologists.
             </h2>
             <p className="text-base text-[var(--ink-soft)] mt-2">
-              Student researchers, systems tinkerers, and front-end artisans.
+              Computer science students, systems builders, and interface artisans.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {TEAM_MEMBERS.map((member) => (
               <div
                 key={member.name}
-                className="bg-[var(--bg)] hairline-all rounded-3xl p-8 space-y-5 hover:border-[var(--green)]/50 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-300"
+                className="bg-[var(--bg)] hairline-all rounded-3xl p-8 space-y-5 hover:border-[var(--green)]/50 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-300 flex flex-col justify-between"
               >
-                <div>
-                  <h3 className="display-heading text-xl text-[var(--ink)]">{member.name}</h3>
-                  <p className="text-xs font-semibold text-[var(--green)] mt-1">{member.role}</p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="display-heading text-xl text-[var(--ink)]">{member.name}</h3>
+                    <p className="text-xs font-semibold text-[var(--green)] mt-1">{member.role}</p>
+                  </div>
+
+                  <p className="text-sm text-[var(--ink-soft)] leading-relaxed">{member.focus}</p>
                 </div>
 
-                <p className="text-sm text-[var(--ink-soft)] leading-relaxed">{member.focus}</p>
-
                 <div className="pt-4 hairline-t flex items-center gap-3 text-[var(--ink-soft)]">
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--surface)] hover:bg-[var(--surface)]/80 hover:text-[var(--green)] text-xs font-medium transition-colors hairline-all"
+                      aria-label={`${member.name} LinkedIn profile`}
+                    >
+                      <Linkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
+                      <span>LinkedIn</span>
+                    </a>
+                  )}
                   {member.github && (
                     <a
                       href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-[var(--surface)] hover:text-[var(--green)] transition-colors"
+                      className="p-2 rounded-full bg-[var(--surface)] hover:text-[var(--green)] transition-colors hairline-all"
                       aria-label={`${member.name} GitHub profile`}
                     >
-                      <Github className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.twitter && (
-                    <a
-                      href={member.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-[var(--surface)] hover:text-[var(--green)] transition-colors"
-                      aria-label={`${member.name} Twitter profile`}
-                    >
-                      <Twitter className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.website && (
-                    <a
-                      href={member.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-[var(--surface)] hover:text-[var(--green)] transition-colors"
-                      aria-label={`${member.name} Personal site`}
-                    >
-                      <Globe className="w-4 h-4" />
+                      <Github className="w-3.5 h-3.5" />
                     </a>
                   )}
                 </div>
@@ -182,22 +182,26 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Direct Link to Inquire */}
-        <section className="hairline-t pt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="space-y-1">
-            <h3 className="display-heading text-2xl text-[var(--ink)]">
-              Ready to create something memorable?
-            </h3>
-            <p className="text-sm text-[var(--ink-soft)]">
-              Let&apos;s build an unforgettable site or bring your capstone engineering to life.
+        {/* Closing CTA */}
+        <section className="hairline-t pt-16">
+          <div className="liquid-glass rounded-3xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-6">
+            <h2 className="display-heading text-3xl sm:text-4xl text-[var(--ink)]">
+              Have an ambitious build in mind?
+            </h2>
+            <p className="text-sm sm:text-base text-[var(--ink-soft)] max-w-xl mx-auto">
+              We review new client and CS capstone proposals every midnight. No bureaucracy, just
+              direct architecture conversations with our engineers.
             </p>
+            <div>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] rounded-full hover:opacity-90 transition-all ease-apple hover:scale-[1.03]"
+              >
+                <span>Initiate a Commission</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              </Link>
+            </div>
           </div>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-90 transition-all rounded-full shadow-sm hover:scale-[1.02] active:scale-[0.98]"
-          >
-            Start A Conversation
-          </Link>
         </section>
       </div>
     </div>

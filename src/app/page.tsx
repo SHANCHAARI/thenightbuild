@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Hero } from '@/components/Hero';
 import { getProjects } from '@/lib/supabase';
-import { ExternalLink, Terminal, Zap, ShieldCheck } from 'lucide-react';
+import { ExternalLink, Terminal, Zap, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -105,6 +105,56 @@ export default async function HomePage() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5 The Midnight Architect Interactive Callout */}
+      <section className="w-full py-16 lg:py-20 hairline-b relative overflow-hidden bg-[var(--surface)]/30">
+        <div className="site-container">
+          <div className="liquid-glass rounded-3xl p-8 sm:p-12 relative overflow-hidden border-[var(--green)]/30 shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--green)]/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--bg)] hairline-all text-xs font-semibold text-[var(--green)]">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Interactive Scope Tool</span>
+                </div>
+                <h3 className="display-heading text-3xl sm:text-5xl text-[var(--ink)] tracking-tight">
+                  Scope your build in 60 seconds with The Midnight Architect.
+                </h3>
+                <p className="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed max-w-2xl">
+                  Wondering how many sprint weeks your MVP or CS capstone takes? Test live archetypes, toggle full-stack capabilities (Postgres, Gemini AI, Framer Motion), and get transparent price brackets with instant AI architecture briefs.
+                </p>
+                <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-[var(--ink-soft)]">
+                  <span className="flex items-center gap-1.5 text-[var(--green)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--green)]" />
+                    Zero Sales Pressure
+                  </span>
+                  <span>•</span>
+                  <span>Transparent Estimation</span>
+                  <span>•</span>
+                  <span>Exportable Markdown Brief</span>
+                </div>
+              </div>
+
+              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+                <Link
+                  href="/blueprint"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 text-xs font-bold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-95 transition-all duration-300 ease-apple rounded-full shadow-lg hover:scale-[1.03] active:scale-[0.97]"
+                >
+                  <span>Launch Blueprint Estimator</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                </Link>
+                <Link
+                  href="/blueprint"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-semibold text-[var(--ink)] hover:text-[var(--green)] rounded-full hairline-all bg-[var(--surface)] hover:bg-[var(--surface)]/80 transition-colors"
+                >
+                  <span>Calculate Custom Stack</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

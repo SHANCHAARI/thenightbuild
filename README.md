@@ -67,3 +67,14 @@ Open [http://localhost:3005](http://localhost:3005) in your browser.
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `GEMINI_API_KEY`
 5. Click **Deploy**. Vercel will automatically build and assign a production URL.
+
+---
+
+## 👥 Engineering Collective
+
+- **Nirmal Kumar** — Co-Founder & Systems / Full-Stack Engineer ([LinkedIn](https://www.linkedin.com/in/nirmal-kumar-a43a56392))
+- **Pusarla Aakash** — Co-Founder & Creative Technologist ([LinkedIn](https://www.linkedin.com/in/pusarla-aakash-79b9a9392))
+- **Vidya Sagar** — Co-Founder & Backend / Platform Engineer ([LinkedIn](https://www.linkedin.com/in/vidyasagarcodes/))
+- **Pusarla Manoj Kumar** — Co-Founder & Cloud Infrastructure / Security Lead ([LinkedIn](https://www.linkedin.com/in/pusarla-manoj-kumar-b3454a3b3))
+
+**Direct Studio Email**: [nigthbulid@gmail.com](mailto:nigthbulid@gmail.com)

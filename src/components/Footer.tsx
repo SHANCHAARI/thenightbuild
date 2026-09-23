@@ -86,7 +86,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <span className="text-xs opacity-75">hello@thenightbuild.dev</span>
+                <a
+                  href="mailto:nigthbulid@gmail.com"
+                  className="text-xs opacity-75 hover:opacity-100 hover:text-[var(--green)] transition-colors font-mono"
+                >
+                  nigthbulid@gmail.com
+                </a>
               </li>
             </ul>
           </div>

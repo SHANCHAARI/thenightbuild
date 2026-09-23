@@ -110,7 +110,7 @@ export function Hero() {
               </div>
               <div className="space-y-1">
                 <p className="font-semibold text-[var(--ink)]">CS Cohort</p>
-                <p className="text-[var(--ink-soft)]">Senior Systems Lab</p>
+                <p className="text-[var(--ink-soft)]">CS Systems Lab</p>
               </div>
               <div className="space-y-1">
                 <p className="font-semibold text-[var(--ink)]">Delivery Guarantee</p>

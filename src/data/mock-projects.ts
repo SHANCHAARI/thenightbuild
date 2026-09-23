@@ -29,7 +29,7 @@ export const MOCK_PROJECTS: Project[] = [
     slug: 'chronos-kernel-visualizer',
     hook: 'Interactive visual debugger for multi-core memory barrier races & Raft consensus.',
     description:
-      'A final-year CS Capstone build turned open-source benchmark. Chronos models hardware concurrency, cache coherence lines, and distributed state machines in a high-fidelity visual replay canvas that universities now use in advanced operating systems labs.',
+      'A CS Capstone build turned open-source benchmark. Chronos models hardware concurrency, cache coherence lines, and distributed state machines in a high-fidelity visual replay canvas that universities now use in advanced operating systems labs.',
     tags: ['Student Project'],
     tech_stack: ['Rust (Wasm)', 'React', 'Canvas API', 'TypeScript', 'Web Workers'],
     thumbnail_url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1600&auto=format&fit=crop',

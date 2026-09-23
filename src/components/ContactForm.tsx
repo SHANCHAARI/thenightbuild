@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { submitLead } from '@/lib/supabase';
-import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Loader2, Sparkles, X } from 'lucide-react';
 
 const PROJECT_TYPES = [
   'Client Commercial Website',
@@ -13,6 +14,8 @@ const PROJECT_TYPES = [
 ];
 
 export function ContactForm() {
+  const searchParams = useSearchParams();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +26,48 @@ export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [submittedLeadId, setSubmittedLeadId] = useState<string | null>(null);
+  const [blueprintActive, setBlueprintActive] = useState<boolean>(false);
+  const [blueprintSummary, setBlueprintSummary] = useState<string>('');
+
+  useEffect(() => {
+    if (!searchParams) return;
+
+    const typeParam = searchParams.get('type');
+    const budgetParam = searchParams.get('budget');
+    const weeksParam = searchParams.get('weeks');
+    const featuresParam = searchParams.get('features');
+    const notesParam = searchParams.get('notes');
+
+    if (typeParam || budgetParam || weeksParam || featuresParam) {
+      setBlueprintActive(true);
+
+      // Check matched project type
+      const matchedType = PROJECT_TYPES.find((t) => t.toLowerCase() === typeParam?.toLowerCase()) || (typeParam ? typeParam : PROJECT_TYPES[0]);
+      
+      const summaryParts = [];
+      if (weeksParam) summaryParts.push(`Timeline: ${weeksParam}`);
+      if (budgetParam) summaryParts.push(`Est. Bracket: ${budgetParam}`);
+      setBlueprintSummary(summaryParts.join(' • '));
+
+      // Construct formatted brief into message
+      const initialMessage = [
+        `[The Midnight Architect Blueprint Specification]`,
+        weeksParam ? `• Target Timeline: ${weeksParam}` : null,
+        budgetParam ? `• Estimated Investment Bracket: ${budgetParam}` : null,
+        featuresParam ? `• Selected Capabilities: ${featuresParam}` : null,
+        notesParam ? `• Project Vision: ${notesParam}` : null,
+        `\n[Additional Project Notes]`,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      setFormData((prev) => ({
+        ...prev,
+        project_type: matchedType,
+        message: prev.message ? prev.message : initialMessage,
+      }));
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,6 +111,7 @@ export function ContactForm() {
     setStatus('idle');
     setErrorMessage('');
     setSubmittedLeadId(null);
+    setBlueprintActive(false);
   };
 
   if (status === 'success') {
@@ -103,7 +149,28 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="liquid-glass rounded-3xl p-8 sm:p-12 space-y-6 shadow-2xl">
+    <form onSubmit={handleSubmit} className="liquid-glass rounded-3xl p-8 sm:p-12 space-y-6 shadow-2xl relative">
+      {/* Blueprint Ingestion Banner */}
+      {blueprintActive && (
+        <div className="p-4 rounded-2xl bg-[var(--green-soft)]/40 border border-[var(--green)]/30 flex items-center justify-between gap-3 text-xs text-[var(--ink)]">
+          <div className="flex items-center gap-2.5">
+            <Sparkles className="w-4 h-4 text-[var(--green)] shrink-0" />
+            <div>
+              <p className="font-semibold text-[var(--green)]">Blueprint Ingested from Midnight Architect</p>
+              <p className="text-[11px] text-[var(--ink-soft)] font-mono">{blueprintSummary}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setBlueprintActive(false)}
+            className="text-[var(--ink-soft)] hover:text-[var(--ink)] p-1 rounded-full"
+            title="Dismiss badge"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {status === 'error' && (
         <div className="flex items-center gap-2 p-3.5 bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs rounded-2xl">
           <AlertCircle className="w-4 h-4 shrink-0" />
@@ -174,12 +241,12 @@ export function ContactForm() {
         </label>
         <textarea
           id="message"
-          rows={5}
+          rows={6}
           required
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Tell us what you are building, the unconventional elements, and any target deadlines..."
-          className="w-full px-4 py-3.5 text-sm bg-[var(--surface)]/50 hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-all duration-300 ease-apple resize-y shadow-inner"
+          className="w-full px-4 py-3.5 text-sm bg-[var(--surface)]/50 hairline-all text-[var(--ink)] placeholder:text-[var(--ink-soft)]/50 focus:border-[var(--green)] rounded-2xl transition-all duration-300 ease-apple resize-y shadow-inner font-mono text-xs leading-relaxed"
         />
       </div>
 
