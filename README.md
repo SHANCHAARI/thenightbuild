@@ -128,8 +128,7 @@ cd thenightbuild
 npm install
 
 # 3. Environment configuration
-cp .env.example .env.local
-# Add NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, GEMINI_API_KEY
+# Add NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and GEMINI_API_KEY to .env.local
 
 # 4. Start nocturnal dev environment
 npm run dev
