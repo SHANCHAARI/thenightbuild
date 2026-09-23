@@ -16,6 +16,7 @@ export interface GeminiRequestBody {
   prompt?: string;
   history?: ChatHistoryItem[];
   projectContext?: Record<string, any>;
+  variationSeed?: number;
 }
 
 export interface GeminiResponseBody {
@@ -48,9 +49,14 @@ STUDIO DETAILS:
 VOICE & TONE:
 - Crisp, technically sophisticated, confident, nocturnal, helpful, and concise.
 - Use markdown formatting with bullet points when enumerating details.
-- When asked about the developers or team, always proudly highlight all four co-founders: Nirmal Kumar, Pusarla Aakash, Vidya Sagar, and Pusarla Manoj Kumar.
+- Vary your sentence structure and phrasing from message to message. Never repeat a sentence you have already used in this conversation.
+- Do not open every reply the same way; skip greetings like "Ah" or "Great question" and get to the substance.
+- Keep replies fresh: if the previous answer covered a topic closely, add new detail instead of restating it.
+- When asked about the developers or team, mention all four co-founders — Nirmal Kumar, Pusarla Aakash, Vidya Sagar, and Pusarla Manoj Kumar — but vary the framing each time.
 - When asked for email or contact, supply nigthbulid@gmail.com and WhatsApp.
 - When asked about WhatsApp, invite them to use the WhatsApp button in the chat header or connect directly.`;
+
+const WELCOME_CONTEXT = `Hello! I am exploring Nightbuild Studio. What can you tell me about your team, works, and how to connect?`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -85,37 +91,68 @@ export async function POST(req: NextRequest) {
     }
 
     // Build multi-turn contents for Gemini
-    const contents: Array<{ role: 'user' | 'model'; parts: Array<{ text: string }> }> = [];
+    interface GeminiContent {
+      role: 'user' | 'model';
+      parts: Array<{ text: string }>;
+    }
+    const contents: GeminiContent[] = [];
 
-    // System guidance as the premier context turn
-    contents.push({
-      role: 'user',
-      parts: [
-        {
-          text: `[SYSTEM INSTRUCTION]\n${SYSTEM_INSTRUCTION}\n\n[CURRENT CONTEXT]\n${JSON.stringify(
-            body.projectContext || {}
-          )}`,
-        },
-      ],
-    });
-    contents.push({
-      role: 'model',
-      parts: [
-        {
-          text: 'Understood. I am The Night Agent for Nightbuild Studio. I will assist visitors with technical depth, knowledge of our team (Nirmal Kumar, Pusarla Aakash, Vidya Sagar, Pusarla Manoj Kumar), our portfolio works, sprint architecture, and direct WhatsApp / contact options.',
-        },
-      ],
-    });
+    const recentHistory = (body.history || [])
+      .filter(
+        (h) =>
+          h.text &&
+          typeof h.text === 'string' &&
+          !h.text.startsWith('[SYSTEM INSTRUCTION]') &&
+          h.text !== WELCOME_CONTEXT
+      )
+      .slice(-6);
 
-    // Append conversation history if provided
-    if (body.history && Array.isArray(body.history)) {
-      body.history.slice(-6).forEach((h) => {
-        contents.push({
-          role: h.sender === 'user' ? 'user' : 'model',
-          parts: [{ text: h.text }],
-        });
+    // Full studio rules always ride in the native systemInstruction field;
+    // here we only seed lightweight context so the model never parrots a giant briefing.
+    if (recentHistory.length === 0) {
+      contents.push({
+        role: 'user',
+        parts: [
+          {
+            text: `[CURRENT CONTEXT]\n${JSON.stringify(body.projectContext || {})}`,
+          },
+        ],
+      });
+      contents.push({
+        role: 'model',
+        parts: [
+          {
+            text: 'Context received. Ready for the first question.',
+          },
+        ],
+      });
+    } else {
+      // Subsequent turns: light reminder only so the model does not re-read (and re-echo) the long briefing every turn
+      contents.push({
+        role: 'user',
+        parts: [
+          {
+            text: `[REMINDER]\nYou are The Night Agent for Nightbuild Studio. Follow the system rules from the start of this conversation: stay concise, vary your phrasing, never repeat earlier sentences.${
+              body.projectContext && Object.keys(body.projectContext).length
+                ? `\n[CONTEXT]\n${JSON.stringify(body.projectContext)}`
+                : ''
+            }`,
+          },
+        ],
+      });
+      contents.push({
+        role: 'model',
+        parts: [{ text: 'On it.' }],
       });
     }
+
+    // Append conversation history if provided
+    recentHistory.forEach((h) => {
+      contents.push({
+        role: h.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: h.text }],
+      });
+    });
 
     // Append the active user prompt
     contents.push({
@@ -123,8 +160,28 @@ export async function POST(req: NextRequest) {
       parts: [{ text: userPrompt }],
     });
 
-    // Try Gemini models in priority order
-    const candidateModels = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-3.8-flash'];
+    // Ask the model to reshape its style slightly each turn so answers never feel copy-pasted
+    const variationSeed =
+      typeof body.variationSeed === 'number' && Number.isFinite(body.variationSeed)
+        ? body.variationSeed
+        : Date.now() % 1000;
+    const variationStyles = [
+      'Answer in a crisp, direct style this turn.',
+      'Answer with a slightly playful, nocturnal tone this turn.',
+      'Answer in a mentor-like, explanatory style this turn.',
+      'Answer tersely, leading with the single most important fact this turn.',
+    ];
+    const styleDirective = variationStyles[variationSeed % variationStyles.length];
+
+    // Try Gemini models in priority order (verified live against the API)
+    const candidateModels = [
+      'gemini-3.6-flash',
+      'gemini-3.5-flash-lite',
+      'gemini-3.5-flash',
+      'gemini-3.7-flash',
+      'gemini-3.8-flash',
+      'gemini-flash-latest',
+    ];
     let lastError: any = null;
     let generatedText: string | null = null;
     let modelUsed: string = candidateModels[0];
@@ -139,9 +196,17 @@ export async function POST(req: NextRequest) {
             body: JSON.stringify({
               contents,
               generationConfig: {
-                temperature: 0.7,
+                temperature: 0.9,
                 topP: 0.95,
-                maxOutputTokens: 800,
+                maxOutputTokens: 700,
+              },
+              // natively supported system instruction field
+              systemInstruction: {
+                parts: [
+                  {
+                    text: `${SYSTEM_INSTRUCTION}\n\nSTYLE FOR THIS TURN: ${styleDirective}`,
+                  },
+                ],
               },
             }),
           }
@@ -155,6 +220,10 @@ export async function POST(req: NextRequest) {
           break;
         } else {
           lastError = result.error || { message: `Failed with status ${response.status}` };
+          // 429/503 on one model: brief pause before falling back to the next
+          if (response.status === 429 || response.status === 503) {
+            await new Promise((r) => setTimeout(r, 400));
+          }
         }
       } catch (err: any) {
         lastError = err;

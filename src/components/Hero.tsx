@@ -31,7 +31,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full pt-16 sm:pt-24 lg:pt-32 pb-20 lg:pb-28 overflow-hidden hairline-b bg-structure">
+    <section className="relative w-full pt-8 sm:pt-12 lg:pt-14 pb-14 lg:pb-20 overflow-hidden hairline-b bg-structure">
       {/* Ambient Atmospheric Glow */}
       <div 
         aria-hidden="true" 
@@ -43,7 +43,7 @@ export function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full space-y-10"
+          className="w-full space-y-7 sm:space-y-8"
         >
           {/* Status Badge (Liquid Glass pill) */}
           <motion.div variants={itemVariants} className="inline-flex items-center">
@@ -59,7 +59,7 @@ export function Hero() {
           {/* Lead Headline (Apple SF Pro scale) */}
           <motion.h1
             variants={itemVariants}
-            className="display-title text-[var(--ink)] text-4xl sm:text-6xl lg:text-7xl xl:text-[4.75rem] leading-[1.08] tracking-tight max-w-5xl"
+            className="display-title text-[var(--ink)] text-3xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] leading-[1.08] tracking-tight max-w-5xl"
           >
             We engineer websites and digital artifacts that conventional studios consider too ambitious, too weird, or too late at night.
           </motion.h1>
@@ -67,7 +67,7 @@ export function Hero() {
           {/* Mission Subhead */}
           <motion.p
             variants={itemVariants}
-            className="text-[var(--ink-soft)] text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-3xl font-normal"
+            className="text-[var(--ink-soft)] text-base sm:text-lg lg:text-xl leading-relaxed max-w-3xl font-normal"
           >
             Nightbuild Studio is an independent, student-run creative engineering agency. We sculpt
             bespoke commercial platforms, interactive web experiences, and computer science
@@ -97,9 +97,9 @@ export function Hero() {
           {/* Liquid Glass Workshop Telemetry Row */}
           <motion.div
             variants={itemVariants}
-            className="pt-2 mt-8"
+            className="pt-1 mt-4"
           >
-            <div className="liquid-glass rounded-3xl p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs">
+            <div className="liquid-glass rounded-3xl p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-xs">
               <div className="space-y-1">
                 <p className="font-semibold text-[var(--ink)]">Active Workshop</p>
                 <p className="text-[var(--ink-soft)]">02:00 AM Sprint Hours</p>

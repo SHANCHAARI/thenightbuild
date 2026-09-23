@@ -10,7 +10,15 @@ interface ProjectGridProps {
   initialProjects: Project[];
 }
 
-const FILTER_TAGS: ProjectTag[] = ['All', 'Client Site', 'Student Project', 'Concept Build'];
+const FILTER_TAGS: ProjectTag[] = [
+  'All',
+  'Open Source Spotlight',
+  'Productivity Tool',
+  'Developer Tool',
+  'Systems Engineering',
+  'AI + Civic Tech',
+  'AI for Good',
+];
 
 export function ProjectGrid({ initialProjects }: ProjectGridProps) {
   const [selectedTag, setSelectedTag] = useState<ProjectTag>('All');
@@ -43,10 +51,8 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
               </button>
             );
           })}
-        </div>
-
-        <span className="text-xs text-[var(--ink-soft)] font-mono">
-          Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'build' : 'builds'}
+        </div>                  <span className="text-xs text-[var(--ink-soft)] font-mono">
+          Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'showcase entry' : 'showcase entries'}
         </span>
       </div>
 
@@ -134,7 +140,7 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
                     href={`/projects/${project.slug}`}
                     className="text-xs font-semibold text-[var(--ink)] group-hover:text-[var(--green)] transition-colors"
                   >
-                    View Study
+                    View Breakdown
                   </Link>
                 </div>
               </div>

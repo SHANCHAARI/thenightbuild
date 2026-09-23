@@ -32,16 +32,125 @@ const QUICK_PROMPTS = [
   'What is your tech stack & pricing?',
 ];
 
-// Clean, iconic Batman Bat Silhouette SVG
+// =============================================================================
+// OFFLINE REPLY ENGINE — keyword-matched but rotated per topic so the same
+// question never gets the same sentence twice in a session.
+// =============================================================================
+const OFFLINE_REPLIES: Record<string, string[]> = {
+  team: [
+    "Nightbuild Studio is founded by a collective of four passionate computer science students:\n\n• **Nirmal Kumar** — Systems & Full-Stack Engineer (Next.js App Router, edge services, API integration)\n• **Pusarla Aakash** — Creative Technologist (tactile UI choreography, motion systems, front-end craft)\n• **Vidya Sagar** — Backend & Platform Engineer (cloud architectures, database schemas, distributed workflows)\n• **Pusarla Manoj Kumar** — Cloud Infrastructure & Security Lead (cloud security, edge networking, CI/CD pipelines)\n\nEach of them is reachable on LinkedIn via the Studio page.",
+    "Four computer science students run this studio, each owning a different layer of the stack:\n\n• **Nirmal Kumar** handles systems and full-stack engineering\n• **Pusarla Aakash** owns creative technology and motion design\n• **Vidya Sagar** builds the backend and platform architecture\n• **Pusarla Manoj Kumar** leads cloud infrastructure and security\n\nWant me to point you to their LinkedIn profiles or WhatsApp?",
+    "The collective is Nirmal Kumar (systems/full-stack), Pusarla Aakash (creative technologist), Vidya Sagar (backend/platform), and Pusarla Manoj Kumar (cloud infra & security).\n\nThey review every build together before anything ships — you can meet them properly on the Studio page.",
+    "Team roster, quick scan:\n\n1. **Nirmal Kumar** — the systems & full-stack backbone (Next.js, edge, APIs)\n2. **Pusarla Aakash** — the design-physics brain (motion, typography, layout)\n3. **Vidya Sagar** — the platform architect (cloud, databases, distributed systems)\n4. **Pusarla Manoj Kumar** — the infrastructure guardian (security, networking, CI/CD)\n\nAll four take client calls directly — WhatsApp is the fastest channel.",
+    "Curious about the humans behind the builds? Four CS students:\n\n• Nirmal Kumar ships the full-stack systems\n• Pusarla Aakash choreographs the UI motion\n• Vidya Sagar designs the data layer\n• Pusarla Manoj Kumar hardens the cloud\n\nTheir LinkedIn links are on the Studio page if you want the full track record.",
+  ],
+  contact: [
+    "Yes! You can connect with our developers directly on WhatsApp for real-time discussions, project questions, or quick scoping. Use the WhatsApp button in the chat header, or write to **nigthbulid@gmail.com**.",
+    "Direct line it is — the WhatsApp button in the chat header opens a chat with all four engineers, and email (**nigthbulid@gmail.com**) works for detailed briefs. Commission triage runs 23:00–03:00 UTC.",
+    "Fastest route is WhatsApp (button in the header of this chat). Prefer writing? Email nigthbulid@gmail.com and someone from the team will reply the same night.",
+    "Two channels, both direct to engineers:\n\n• **WhatsApp** — instant, best for quick scoping (button in the chat header)\n• **Email** — nigthbulid@gmail.com, best for detailed briefs and attachments\n\nNo sales middlemen, you talk to the people who write the code.",
+    "Ping us on WhatsApp and you'll reach Nirmal, Aakash, Vidya, or Manoj directly — whoever is on workshop duty. Email nigthbulid@gmail.com also works if you prefer async.",
+  ],
+  works: [
+    "We craft both commercial platforms and landmark CS capstones with zero templates:\n\n1. **Chronos** — Distributed Kernel Visualizer for memory barrier races and Raft consensus.\n2. **Vesperal Atelier** — bespoke showcase with fluid typography and sub-second edge rendering.\n3. **Aetherform** — Web Audio DSP synthesis engine with zero-jank Canvas shaders.\n\nFull archive lives under `/projects`, or scope your own build on `/blueprint`.",
+    "Recent builds include **Chronos** (a kernel visualizer for multicore races), **Vesperal Atelier** (an edge-rendered commercial platform), and **Aetherform** (an in-browser audio synthesis engine).\n\nEach one is documented in `/projects` with the full technical breakdown.",
+    "Three flagship artifacts to look at:\n\n• **Chronos** — distributed systems debugger for CS research\n• **Vesperal Atelier** — commercial platform, zero templates, sub-second loads\n• **Aetherform** — real-time Web Audio + Canvas shaders\n\nOr spin up your own estimate on `/blueprint` in about a minute.",
+    "Our portfolio splits into two tracks:\n\n**CS research tools** — like Chronos, which visualizes memory barrier races in distributed kernels.\n**Commercial platforms** — like Vesperal Atelier (Tokyo ceramics e-commerce at sub-second edge speeds) and Aetherform (a generative audio canvas).\n\nCase studies with architecture diagrams are in `/projects`.",
+    "Depends what you want to see:\n\n• Distributed systems? → **Chronos**\n• Edge-rendered commerce? → **Vesperal Atelier**\n• Real-time audio/DSP? → **Aetherform**\n\nAll three have full write-ups under `/projects`, and `/blueprint` can estimate a build like them for you.",
+  ],
+  pricing: [
+    "We offer transparent, fixed-bracket sprint pricing without hidden agency markup. CS capstones typically land between **$1,800–$3,400**, while commercial MVPs run **$4,200–$9,600**. The interactive estimator on `/blueprint` gives you a real number in real time.",
+    "Pricing is bracketed, not hourly: capstones around $1,800–$3,400, commercial MVPs around $4,200–$9,600, depending on complexity score and sprint velocity. Feed your feature list into `/blueprint` for an instant quote.",
+    "Two fixed brackets: **CS capstones $1,800–$3,400** and **commercial MVPs $4,200–$9,600**. Complexity, stack toggles, and velocity all shift the final number — the `/blueprint` tool calculates it live.",
+    "No hourly billing, no surprise invoices — fixed sprint brackets only. Capstones sit in the $1,800–$3,400 band, commercial MVPs in the $4,200–$9,600 band. Want precision? The Midnight Architect at `/blueprint` prices your exact feature list.",
+    "Short answer: capstones $1,800–$3,400, MVPs $4,200–$9,600.\n\nLonger answer: it depends on complexity score (1–5), stack choices (Postgres, AI gateway, WebSockets), and sprint velocity. All three are adjustable in the live calculator at `/blueprint`.",
+  ],
+  general: [
+    "We are an independent creative engineering agency run by computer science students — bespoke web platforms, research dashboards, and capstones with sub-second execution. Want the project archive, the team, or a direct WhatsApp line?",
+    "In short: four CS students building zero-template web platforms and research tools at night. Ask me about our works, our developers, or pricing — or hit WhatsApp to talk to a human engineer right now.",
+    "Think of us as a nocturnal studio: no templates, no sales decks — just engineered web artifacts. Where should we go from here: portfolio, team, or scoping your own build?",
+    "We build things agencies won't touch: kernel visualizers, DSP engines, edge-rendered storefronts — all from scratch, all shipped with full source ownership. What would you like to dig into?",
+    "Nightbuild = a four-student collective that prototypes in 48 hours and ships zero-template web platforms. Ask me about specific builds, the team, or get a live price estimate at `/blueprint`.",
+  ],
+};
+
+function classifyQuery(query: string): keyof typeof OFFLINE_REPLIES {
+  const lower = query.toLowerCase();
+  if (/(developer|team|who|nirmal|aakash|vidya|manoj|founder)/.test(lower)) return 'team';
+  if (/(whatsapp|chat|phone|call|email|contact|reach)/.test(lower)) return 'contact';
+  if (/(work|project|portfolio|capstone|chronos|vesperal|aetherform|built|build)/.test(lower)) return 'works';
+  if (/(price|cost|quote|rate|pricing|budget|invest|charge)/.test(lower)) return 'pricing';
+  return 'general';
+}
+
+function buildOfflineReply(query: string, usage: Record<string, number>): string {
+  const topic = classifyQuery(query);
+  const pool = OFFLINE_REPLIES[topic];
+  // Deterministic round-robin per topic: cycle through ALL variations before any repeats
+  const index = (usage[topic] ?? 0) % pool.length;
+  usage[topic] = (usage[topic] ?? 0) + 1;
+  let pick = pool[index];
+  // If the query is completely off-topic, append a gentle steer
+  const words = query.toLowerCase().split(/\s+/);
+  const knownWords = [
+    'platform', 'build', 'design', 'service', 'agency', 'studio', 'web', 'app', 'site',
+    'developer', 'team', 'nirmal', 'aakash', 'vidya', 'manoj',
+    'whatsapp', 'chat', 'phone', 'call', 'email', 'contact', 'reach',
+    'work', 'project', 'portfolio', 'capstone', 'chronos', 'vesperal', 'aetherform',
+    'price', 'cost', 'quote', 'rate', 'pricing', 'budget', 'invest', 'charge',
+    'who', 'what', 'how', 'can', 'tell', 'more',
+  ];
+  const isOffTopic = !words.some((w) => knownWords.includes(w));
+  if (isOffTopic) {
+    pick = `${pick}\n\n(Offline mode: answering from my built-in brief — add GEMINI_API_KEY to .env.local for full conversational depth.)`;
+  }
+  return pick;
+}
+
+// Premium bat emblem — layered wings, sharp silhouette, theme-aware gradient fill
 function BatmanBatLogo({ className = 'w-7 h-7' }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 100 60"
-      fill="currentColor"
+      viewBox="0 0 120 66"
+      fill="none"
       className={className}
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
-      <path d="M50 10 C46 18, 43 21, 37 22 C33 17, 27 15, 19 14 C23 21, 23 27, 20 33 C12 33, 4 29, 0 22 C2 36, 10 45, 24 49 C20 55, 21 59, 26 60 C32 53, 38 49, 44 48 C47 50, 48 53, 50 56 C52 53, 53 50, 56 48 C62 49, 68 53, 74 60 C79 59, 80 55, 76 49 C90 45, 98 36, 100 22 C96 29, 88 33, 80 33 C77 27, 77 21, 81 14 C73 15, 67 17, 63 22 C57 21, 54 18, 50 10 Z" />
+      <defs>
+        <linearGradient id="batWingGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="55%" stopColor="#EAEFEA" />
+          <stop offset="100%" stopColor="#B9C9BD" />
+        </linearGradient>
+      </defs>
+      {/* Main bat silhouette with sharper wings + head tufts */}
+      <path
+        d="M60 8
+           C57.5 16, 53.5 20.5, 47 22
+           C42 16.5, 34.5 13.5, 24 12.5
+           C29 20, 29.5 27.5, 25.5 34.5
+           C15.5 34, 6 29, 0 21
+           C2.5 38, 12 49.5, 28.5 54.5
+           C24 60.5, 25 64.5, 30.5 66
+           C37.5 57.5, 44.5 53, 51.5 52
+           C55 54.5, 57.5 58.5, 60 63
+           C62.5 58.5, 65 54.5, 68.5 52
+           C75.5 53, 82.5 57.5, 89.5 66
+           C95 64.5, 96 60.5, 91.5 54.5
+           C108 49.5, 117.5 38, 120 21
+           C114 29, 104.5 34, 94.5 34.5
+           C90.5 27.5, 91 20, 96 12.5
+           C85.5 13.5, 78 16.5, 73 22
+           C66.5 20.5, 62.5 16, 60 8 Z"
+        fill="url(#batWingGrad)"
+      />
+      {/* Center crest accent — subtle green core glow */}
+      <path
+        d="M60 30 C58.6 33.8, 56.4 36.2, 53 37.2 C56 39.2, 58 41.6, 60 44.8 C62 41.6, 64 39.2, 67 37.2 C63.6 36.2, 61.4 33.8, 60 30 Z"
+        fill="#3FA35F"
+        opacity="0.9"
+      />
     </svg>
   );
 }
@@ -59,6 +168,8 @@ export function FloatingAgent() {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const fallbackUsageRef = useRef<Record<string, number>>({});
+  const isLoadingRef = useRef(false);
 
   useEffect(() => {
     setMounted(true);
@@ -87,7 +198,8 @@ export function FloatingAgent() {
 
   const handleSendMessage = async (textToSend?: string) => {
     const query = textToSend || inputValue;
-    if (!query.trim() || isLoading) return;
+    if (!query.trim() || isLoadingRef.current) return;
+    isLoadingRef.current = true;
 
     const userMessage: ChatMessage = {
       id: 'usr-' + Date.now(),
@@ -99,7 +211,6 @@ export function FloatingAgent() {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
-
     try {
       const res = await fetch('/api/gemini', {
         method: 'POST',
@@ -107,6 +218,7 @@ export function FloatingAgent() {
         body: JSON.stringify({
           prompt: query.trim(),
           history: messages.slice(-6).map((m) => ({ sender: m.sender, text: m.text })),
+          variationSeed: Date.now() % 1000,
           projectContext: {
             agency: 'Nightbuild Studio',
             creators: 'Computer Science students Nirmal Kumar, Pusarla Aakash, Vidya Sagar, Pusarla Manoj Kumar',
@@ -126,19 +238,8 @@ export function FloatingAgent() {
       if (data.status === 'success' && data.data?.result) {
         reply = data.data.result;
       } else {
-        // High quality intelligent response based on keywords
-        const lower = query.toLowerCase();
-        if (lower.includes('developer') || lower.includes('team') || lower.includes('who') || lower.includes('nirmal') || lower.includes('aakash') || lower.includes('vidya') || lower.includes('manoj')) {
-          reply = "Nightbuild Studio is founded by a collective of four passionate computer science students:\n\n• **Nirmal Kumar**: Systems & Full-Stack Engineer (Next.js App Router, edge services, API integration)\n• **Pusarla Aakash**: Creative Technologist (tactile UI choreography, motion systems, and front-end craft)\n• **Vidya Sagar**: Backend & Platform Engineer (cloud architectures, database schemas, and distributed workflows)\n• **Pusarla Manoj Kumar**: Cloud Infrastructure & Security Lead (cloud security, edge networking, DevOps, and CI/CD pipelines)\n\nYou can connect directly with each of them on LinkedIn via the Studio page!";
-        } else if (lower.includes('whatsapp') || lower.includes('chat') || lower.includes('phone') || lower.includes('call')) {
-          reply = "Yes! You can connect with our developers directly on WhatsApp for real-time discussions, project questions, or quick scoping. Click the WhatsApp button in the top corner of this chat, or open WhatsApp directly!";
-        } else if (lower.includes('work') || lower.includes('project') || lower.includes('portfolio') || lower.includes('capstone')) {
-          reply = "We craft both commercial platforms and landmark CS capstones with zero templates:\n\n1. **Chronos**: Distributed Kernel Visualizer for memory barrier races and Paxos consensus.\n2. **Vesperal Atelier**: Bespoke dynamic showcase with Apple-grade fluid typography and sub-second edge rendering.\n3. **Aetherform**: Web Audio DSP synthesis engine with zero-jank Canvas shaders.\n\nCheck out the full archive under `/projects` or calculate your custom build on `/blueprint`!";
-        } else if (lower.includes('price') || lower.includes('cost') || lower.includes('quote') || lower.includes('rate')) {
-          reply = "We offer transparent, fixed-bracket sprint pricing without hidden agency markup. CS capstones typically range between $1,800–$3,400, while commercial MVPs range between $4,200–$9,600. Try our interactive estimator on `/blueprint` for a real-time calculation!";
-        } else {
-          reply = "We are an independent creative engineering agency run by computer science students. We design and build bespoke web platforms, research dashboards, and capstones with sub-second execution. Would you like to explore our works, meet our team, or connect directly on WhatsApp?";
-        }
+        // Offline mode: deterministic round-robin — every answer in a topic is shown before any repeats
+        reply = buildOfflineReply(query.trim(), fallbackUsageRef.current);
       }
 
       const agentMessage: ChatMessage = {
@@ -150,20 +251,46 @@ export function FloatingAgent() {
 
       setMessages((prev) => [...prev, agentMessage]);
     } catch {
+      // Offline fallback on network failure too — still rotated, never repeated
+      const reply = buildOfflineReply(query.trim(), fallbackUsageRef.current);
       setMessages((prev) => [
         ...prev,
         {
           id: 'err-' + Date.now(),
           sender: 'agent',
-          text: "I am currently running in offline mode. Feel free to reach out to our team directly on WhatsApp or submit an inquiry on the Contact page!",
-          timestamp: 'Just now',
+          text: reply,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
     } finally {
+      isLoadingRef.current = false;
       setIsLoading(false);
     }
   };
 
+  // SSR-safe: render markup on the server too (chat logic activates after hydration)
+  // so exported static HTML still contains the floating agent UI.
+  if (!mounted && typeof window === 'undefined') {
+    // Server render: emit the trigger button statically
+    return (
+      <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 9999 }} className="flex items-center gap-3">
+        <button
+          type="button"
+          aria-label="Open Night Agent chat"
+          className="relative w-[60px] h-[60px] rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group overflow-hidden"
+          style={{
+            background: 'radial-gradient(120% 120% at 30% 20%, #1F2A22 0%, #0B0F0C 55%, #050705 100%)',
+            border: '1.5px solid rgba(63, 163, 95, 0.55)',
+            boxShadow: '0 10px 34px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 24px rgba(63, 163, 95, 0.4)',
+          }}
+        >
+          <div className="relative z-10">
+            <BatmanBatLogo className="w-9 h-9 drop-shadow-[0_3px_6px_rgba(0,0,0,0.75)]" />
+          </div>
+        </button>
+      </div>
+    );
+  }
   if (!mounted) return null;
 
   return (
@@ -193,19 +320,37 @@ export function FloatingAgent() {
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.94 }}
           aria-label={isOpen ? 'Close Night Agent chat' : 'Open Night Agent chat'}
-          className="relative w-14 h-14 rounded-full flex items-center justify-center bg-black text-white shadow-2xl border-2 border-[var(--green)]/60 hover:border-[var(--green)] transition-all duration-300 group overflow-hidden"
+          className="relative w-[60px] h-[60px] rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group overflow-hidden"
           style={{
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(63, 163, 95, 0.35)',
+            background: 'radial-gradient(120% 120% at 30% 20%, #1F2A22 0%, #0B0F0C 55%, #050705 100%)',
+            border: '1.5px solid rgba(63, 163, 95, 0.55)',
+            boxShadow: '0 10px 34px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 24px rgba(63, 163, 95, 0.4)',
           }}
         >
-          {/* Subtle Ambient Night Glow */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[var(--green)]/20 via-transparent to-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+          {/* Orbiting signal ring */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-[-5px] rounded-full border border-dashed border-[var(--green)]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ animation: 'bat-orbit 9s linear infinite' }}
+          />
+          {/* Signal sweep glow */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'conic-gradient(from 0deg, transparent 0deg, rgba(63,163,95,0.35) 40deg, transparent 80deg)',
+                animation: 'bat-sweep 2.6s linear infinite',
+              }}
+            />
+          </div>
+          {/* Ambient green bloom */}
+          <div className="absolute -inset-3 rounded-full bg-[var(--green)]/25 blur-xl opacity-40 group-hover:opacity-80 transition-opacity duration-500 -z-10" />
 
           {isOpen ? (
-            <X className="w-6 h-6 text-white stroke-[2.5]" />
+            <X className="w-6 h-6 text-white stroke-[2.5] relative z-10" />
           ) : (
-            <div className="flex flex-col items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
-              <BatmanBatLogo className="w-8 h-8 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
+            <div className="relative z-10 group-hover:scale-110 transition-transform duration-300">
+              <BatmanBatLogo className="w-9 h-9 drop-shadow-[0_3px_6px_rgba(0,0,0,0.75)]" />
             </div>
           )}
         </motion.button>
@@ -225,10 +370,22 @@ export function FloatingAgent() {
             className="w-[calc(100vw-2rem)] sm:w-[420px] h-[550px] max-h-[80vh] flex flex-col rounded-3xl liquid-glass shadow-2xl overflow-hidden border border-[var(--line)] bg-[var(--surface)]/95 backdrop-blur-2xl"
           >
             {/* Header */}
-            <div className="p-4 sm:p-5 border-b border-[var(--line)] flex items-center justify-between bg-black/40">
+            <div
+              className="p-4 sm:p-5 border-b border-[var(--line)] flex items-center justify-between"
+              style={{
+                background: 'linear-gradient(135deg, rgba(63,163,95,0.14) 0%, rgba(10,10,10,0.04) 45%, transparent 100%)',
+              }}
+            >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-black flex items-center justify-center text-white border border-[var(--green)]/40 shadow-inner">
-                  <BatmanBatLogo className="w-6 h-6 text-white" />
+                <div
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-inner relative overflow-hidden"
+                  style={{
+                    background: 'radial-gradient(120% 120% at 30% 20%, #1F2A22 0%, #0B0F0C 60%, #050705 100%)',
+                    border: '1px solid rgba(63,163,95,0.5)',
+                    boxShadow: '0 0 14px rgba(63,163,95,0.28)',
+                  }}
+                >
+                  <BatmanBatLogo className="w-6.5 h-6.5 w-7 h-7" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">

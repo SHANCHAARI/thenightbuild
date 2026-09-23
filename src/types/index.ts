@@ -27,4 +27,4 @@ export interface Lead {
   created_at?: string;
 }
 
-export type ProjectTag = 'All' | 'Client Site' | 'Student Project' | 'Concept Build';
+export type ProjectTag = 'All' | 'Open Source Spotlight' | 'Productivity Tool' | 'Developer Tool' | 'Systems Engineering' | 'AI + Civic Tech' | 'AI for Good' | 'SaaS Platform' | 'Analytics Platform' | 'Student Project';

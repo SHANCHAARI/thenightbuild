@@ -20,7 +20,7 @@ export async function generateMetadata({
     return { title: 'Project Not Found — Nightbuild Studio' };
   }
   return {
-    title: `${project.title} — Case Study | Nightbuild Studio`,
+    title: `${project.title} — Showcase | Nightbuild Studio`,
     description: project.hook,
   };
 }
@@ -51,7 +51,7 @@ export default async function ProjectDetailPage({
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--ink-soft)] hover:text-[var(--ink)] transition-colors shadow-sm"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Projects Archive</span>
+            <span>Back to Showcase</span>
           </Link>
         </div>
 
@@ -79,16 +79,16 @@ export default async function ProjectDetailPage({
           {/* Apple-style Specs Grid */}
           <div className="pt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
             <div className="p-5 rounded-2xl bg-[var(--surface)]/70 hairline-all">
-              <p className="font-semibold text-[var(--ink)]">Client / Context</p>
-              <p className="text-[var(--ink-soft)] mt-1">{project.client || 'Nightbuild Atelier'}</p>
+              <p className="font-semibold text-[var(--ink)]">Built By</p>
+              <p className="text-[var(--ink-soft)] mt-1">{project.client || 'Open-source community'}</p>
             </div>
             <div className="p-5 rounded-2xl bg-[var(--surface)]/70 hairline-all">
-              <p className="font-semibold text-[var(--ink)]">Year</p>
-              <p className="text-[var(--ink-soft)] mt-1">{project.year || '2026'}</p>
+              <p className="font-semibold text-[var(--ink)]">First Released</p>
+              <p className="text-[var(--ink-soft)] mt-1">{project.year || '—'}</p>
             </div>
             <div className="p-5 rounded-2xl bg-[var(--surface)]/70 hairline-all">
-              <p className="font-semibold text-[var(--ink)]">Engineering Role</p>
-              <p className="text-[var(--ink-soft)] mt-1">{project.role || 'Full-Stack Architecture'}</p>
+              <p className="font-semibold text-[var(--ink)]">Showcase Status</p>
+              <p className="text-[var(--ink-soft)] mt-1">{project.role || 'Featured open-source build'}</p>
             </div>
             <div className="p-5 rounded-2xl bg-[var(--surface)]/70 hairline-all">
               <p className="font-semibold text-[var(--ink)]">Live Deployment</p>
@@ -123,7 +123,7 @@ export default async function ProjectDetailPage({
                 />
               </div>
               <p className="text-xs text-[var(--ink-soft)] italic px-2">
-                Interactive video demonstration recorded in the midnight studio lab.
+                Product demonstration from the original creators.
               </p>
             </div>
           ) : project.thumbnail_url ? (
@@ -146,10 +146,10 @@ export default async function ProjectDetailPage({
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
             <div className="md:col-span-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)] mb-3">
-                <span>01 Concept</span>
+                <span>01 The Project</span>
               </div>
               <h2 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
-                The Creative Idea
+                What It Does
               </h2>
             </div>
             <div className="md:col-span-8 space-y-4">
@@ -163,12 +163,12 @@ export default async function ProjectDetailPage({
           {project.challenge && (
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 hairline-t pt-16">
               <div className="md:col-span-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)] mb-3">
-                  <span>02 Challenge</span>
-                </div>
-                <h2 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
-                  The Technical Bottleneck
-                </h2>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)] mb-3">
+                <span>02 Why It Matters</span>
+              </div>
+              <h2 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
+                The Problem It Solves
+              </h2>
               </div>
               <div className="md:col-span-8 space-y-4">
                 <p className="text-base sm:text-lg text-[var(--ink-soft)] leading-relaxed">
@@ -183,10 +183,10 @@ export default async function ProjectDetailPage({
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 hairline-t pt-16">
               <div className="md:col-span-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)] mb-3">
-                  <span>03 Engineering</span>
+                  <span>03 The Approach</span>
                 </div>
                 <h2 className="display-heading text-2xl sm:text-3xl text-[var(--ink)]">
-                  The Architectural Solution
+                  How They Solved It
                 </h2>
               </div>
               <div className="md:col-span-8 space-y-4">
@@ -226,10 +226,10 @@ export default async function ProjectDetailPage({
         <section className="pt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-1">
             <h3 className="display-heading text-2xl text-[var(--ink)]">
-              Interested in a build like this?
+              Want a build at this standard?
             </h3>
             <p className="text-sm text-[var(--ink-soft)]">
-              We engineer tailored web solutions and novel student capstones.
+              This showcase entry belongs to its original creators — we feature it as a benchmark for our own engineering. Your project could be the next one here.
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -240,7 +240,7 @@ export default async function ProjectDetailPage({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] bg-[var(--surface)] hairline-all hover:border-[var(--green)] hover:text-[var(--green)] transition-all rounded-full"
               >
-                <span>Live Demo</span>
+                <span>Visit Original Project</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             )}

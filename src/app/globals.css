@@ -180,6 +180,17 @@ select:focus-visible {
   outline-offset: 3px;
 }
 
+/* Night Agent bat emblem animations */
+@keyframes bat-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bat-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Smooth motion handling */
 @media (prefers-reduced-motion: reduce) {
   *,

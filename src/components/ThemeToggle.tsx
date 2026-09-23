@@ -31,8 +31,15 @@ export function ThemeToggle() {
   };
 
   if (!mounted) {
+    // SSR: render the toggle shell statically so exported HTML keeps the theme button
     return (
-      <div className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface)]/50" />
+      <button
+        type="button"
+        aria-label="Switch to light theme"
+        className="w-9 h-9 flex items-center justify-center text-[var(--ink-soft)] rounded-full border border-[var(--line)] bg-[var(--surface)]/60"
+      >
+        <Sun className="w-4 h-4 stroke-[1.75]" />
+      </button>
     );
   }
 

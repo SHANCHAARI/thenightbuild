@@ -16,23 +16,23 @@ export default async function HomePage() {
       {/* 1. Fluid Hero Section with Ambient Glow */}
       <Hero />
 
-      {/* 2. Selected Works Showcase */}
+      {/* 2. Curated Open-Source Showcase */}
       <section className="w-full py-20 lg:py-28 hairline-b relative">
         <div className="site-container">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6">
             <div className="max-w-2xl">
               <div className="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold text-[var(--green)] mb-3">
-                <span>Selected Works</span>
+                <span>Open-Source Showcase</span>
               </div>
               <h2 className="display-heading text-3xl sm:text-5xl text-[var(--ink)] tracking-tight">
-                Crafted for founders & CS researchers.
+                Builds we study. Standards we chase.
               </h2>
             </div>
             <Link
               href="/projects"
               className="liquid-glass-pill inline-flex items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple rounded-full hover:scale-[1.03] active:scale-[0.97] self-start md:self-end"
             >
-              View Full Portfolio Archive
+              Browse Full Showcase
             </Link>
           </div>
 
@@ -96,12 +96,14 @@ export default async function HomePage() {
                       </span>
                     ))}
                   </div>
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="text-xs font-semibold text-[var(--ink)] group-hover:text-[var(--green)] transition-colors"
+                  <a
+                    href={project.live_url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold text-[var(--green)] hover:underline"
                   >
-                    View Study
-                  </Link>
+                    Visit Original ↗
+                  </a>
                 </div>
               </article>
             ))}
