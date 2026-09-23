@@ -135,7 +135,7 @@ export function FloatingAgent() {
         } else if (lower.includes('work') || lower.includes('project') || lower.includes('portfolio') || lower.includes('capstone')) {
           reply = "We craft both commercial platforms and landmark CS capstones with zero templates:\n\n1. **Chronos**: Distributed Kernel Visualizer for memory barrier races and Paxos consensus.\n2. **Vesperal Atelier**: Bespoke dynamic showcase with Apple-grade fluid typography and sub-second edge rendering.\n3. **Aetherform**: Web Audio DSP synthesis engine with zero-jank Canvas shaders.\n\nCheck out the full archive under `/projects` or calculate your custom build on `/blueprint`!";
         } else if (lower.includes('price') || lower.includes('cost') || lower.includes('quote') || lower.includes('rate')) {
-          reply = "We offer transparent, fixed-bracket sprint pricing without hidden agency markup. CS capstones typically range between $1,800–$3,400, while commercial MVPs range between $4,200–$9,600. Try our interactive estimator on `/blueprint` for a real-time calculation!";
+          reply = "We offer transparent, fixed-bracket sprint pricing in INR without hidden agency markup. CS capstones typically range between ₹8,000–₹18,000 (delivered in ~4–7 days), while commercial MVPs range between ₹35,000–₹1,40,000. Try our interactive estimator on `/blueprint` for a real-time calculation in INR!";
         } else {
           reply = "We are an independent creative engineering agency run by computer science students. We design and build bespoke web platforms, research dashboards, and capstones with sub-second execution. Would you like to explore our works, meet our team, or connect directly on WhatsApp?";
         }
