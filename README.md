@@ -111,7 +111,7 @@ We are four computer science students combining systems-level engineering with h
 
 Have an ambitious concept waiting for a working prototype, or need a capstone interface built from scratch?
 
-- **Direct Studio Email**: [nigthbulid@gmail.com](mailto:nigthbulid@gmail.com)
+- **Direct Studio Email**: [nightbuildstudio@gmail.com](mailto:nightbuildstudio@gmail.com)
 - **Instant WhatsApp Channel**: [Chat with Engineers on WhatsApp](https://wa.me/?text=Hi%20Nightbuild%20Studio!%20I%20would%20like%20to%20discuss%20a%20project%20with%20your%20team.)
 - **Project Commission Form**: Direct triage daily between 23:00 and 03:00 UTC during active workshop sprints.
 

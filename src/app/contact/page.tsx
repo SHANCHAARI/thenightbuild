@@ -70,7 +70,7 @@ export default function ContactPage() {
                 <div className="space-y-0.5 text-xs">
                   <p className="font-semibold text-[var(--ink)] text-sm">Direct Transmission</p>
                   <p className="text-[var(--ink-soft)] leading-relaxed">
-                    <a href="mailto:nigthbulid@gmail.com" className="text-[var(--green)] hover:underline font-mono">nigthbulid@gmail.com</a> for project briefs, sensitive specs, or academic research inquiries.
+                    <a href="mailto:nightbuildstudio@gmail.com" className="text-[var(--green)] hover:underline font-mono">nightbuildstudio@gmail.com</a> for project briefs, sensitive specs, or academic research inquiries.
                   </p>
                 </div>
               </div>

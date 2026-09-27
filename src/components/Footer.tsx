@@ -97,10 +97,10 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:nigthbulid@gmail.com"
+                  href="mailto:nightbuildstudio@gmail.com"
                   className="text-xs opacity-75 hover:opacity-100 hover:text-[var(--green)] transition-colors font-mono"
                 >
-                  nigthbulid@gmail.com
+                  nightbuildstudio@gmail.com
                 </a>
               </li>
             </ul>
