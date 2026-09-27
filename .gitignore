@@ -21,6 +21,10 @@
 .env*.local
 .env
 
+# Local dev server logs
+dev.log
+serve.log
+
 # Vercel
 .vercel
 

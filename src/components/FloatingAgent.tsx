@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '@/lib/supabase';
 import {
   X,
   Send,
@@ -33,8 +34,9 @@ const QUICK_PROMPTS = [
 ];
 
 // =============================================================================
-// OFFLINE REPLY ENGINE — keyword-matched but rotated per topic so the same
-// question never gets the same sentence twice in a session.
+// FALLBACK REPLY ENGINE — keyword-matched but rotated per topic so the same
+// question never gets the same sentence twice in a session. Rotation counters
+// persist in localStorage so a reload never restarts the rotation.
 // =============================================================================
 const OFFLINE_REPLIES: Record<string, string[]> = {
   team: [
@@ -89,22 +91,7 @@ function buildOfflineReply(query: string, usage: Record<string, number>): string
   // Deterministic round-robin per topic: cycle through ALL variations before any repeats
   const index = (usage[topic] ?? 0) % pool.length;
   usage[topic] = (usage[topic] ?? 0) + 1;
-  let pick = pool[index];
-  // If the query is completely off-topic, append a gentle steer
-  const words = query.toLowerCase().split(/\s+/);
-  const knownWords = [
-    'platform', 'build', 'design', 'service', 'agency', 'studio', 'web', 'app', 'site',
-    'developer', 'team', 'nirmal', 'aakash', 'vidya', 'manoj',
-    'whatsapp', 'chat', 'phone', 'call', 'email', 'contact', 'reach',
-    'work', 'project', 'portfolio', 'capstone', 'chronos', 'vesperal', 'aetherform',
-    'price', 'cost', 'quote', 'rate', 'pricing', 'budget', 'invest', 'charge',
-    'who', 'what', 'how', 'can', 'tell', 'more',
-  ];
-  const isOffTopic = !words.some((w) => knownWords.includes(w));
-  if (isOffTopic) {
-    pick = `${pick}\n\n(Offline mode: answering from my built-in brief — add GEMINI_API_KEY to .env.local for full conversational depth.)`;
-  }
-  return pick;
+  return pool[index];
 }
 
 // Premium bat emblem — layered wings, sharp silhouette, theme-aware gradient fill
@@ -170,9 +157,30 @@ export function FloatingAgent() {
   const [inputValue, setInputValue] = useState('');
   const fallbackUsageRef = useRef<Record<string, number>>({});
   const isLoadingRef = useRef(false);
+  const sessionIdRef = useRef<string>('');
+  const restoredRef = useRef(false);
+  const savedIdsRef = useRef<Set<string>>(new Set());
+
+  // Rotated fallback answer + persist the per-topic counters so a page reload
+  // never restarts the rotation (that was causing the "same answer again" feel).
+  const nextOfflineReply = (query: string) => {
+    const reply = buildOfflineReply(query.trim(), fallbackUsageRef.current);
+    try {
+      window.localStorage.setItem('nightbuild-agent-fallback-usage', JSON.stringify(fallbackUsageRef.current));
+    } catch {
+      /* private mode — rotation still works in-memory */
+    }
+    return reply;
+  };
 
   useEffect(() => {
     setMounted(true);
+    try {
+      const savedUsage = window.localStorage.getItem('nightbuild-agent-fallback-usage');
+      if (savedUsage) fallbackUsageRef.current = JSON.parse(savedUsage);
+    } catch {
+      /* ignore */
+    }
   }, []);
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -185,6 +193,66 @@ export function FloatingAgent() {
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Chat history persistence — when Supabase keys are configured, every message
+  // is stored and restored on reload. Without keys this silently no-ops.
+  useEffect(() => {
+    if (restoredRef.current) return;
+    restoredRef.current = true;
+    if (!supabase) return;
+    let storedSession: string | null = null;
+    try {
+      storedSession = window.localStorage.getItem('nightbuild-chat-session');
+    } catch {
+      /* private mode */
+    }
+    if (!storedSession) {
+      storedSession =
+        (typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID()) ||
+        `sess-${Date.now().toString(36)}`;
+      try {
+        window.localStorage.setItem('nightbuild-chat-session', storedSession);
+      } catch {
+        /* ignore */
+      }
+    }
+    sessionIdRef.current = storedSession;
+    (async () => {
+      try {
+        const { data, error } = await supabase!
+          .from('agent_messages')
+          .select('sender, text, created_at')
+          .eq('session_id', sessionIdRef.current)
+          .order('created_at', { ascending: true })
+          .limit(50);
+        if (error || !data || data.length === 0) return;
+        const restored: ChatMessage[] = data.map((row: any, i: number) => ({
+          id: `hist-${i}-${row.created_at}`,
+          sender: row.sender === 'user' ? 'user' : 'agent',
+          text: row.text,
+          timestamp: new Date(row.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        }));
+        restored.forEach((m) => savedIdsRef.current.add(m.id));
+        setMessages((prev) => (prev.length > 1 ? prev : [...prev, ...restored]));
+      } catch {
+        /* offline — local chat keeps working */
+      }
+    })();
+  }, []);
+
+  // Append-only save: push each new message to Supabase (no-op without keys)
+  useEffect(() => {
+    if (!supabase || !sessionIdRef.current) return;
+    const latest = messages[messages.length - 1];
+    if (!latest || latest.id === 'welcome' || savedIdsRef.current.has(latest.id)) return;
+    savedIdsRef.current.add(latest.id);
+    supabase
+      .from('agent_messages')
+      .insert({ session_id: sessionIdRef.current, sender: latest.sender, text: latest.text })
+      .then(({ error }: any) => {
+        if (error) savedIdsRef.current.delete(latest.id);
+      });
+  }, [messages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -238,8 +306,8 @@ export function FloatingAgent() {
       if (data.status === 'success' && data.data?.result) {
         reply = data.data.result;
       } else {
-        // Offline mode: deterministic round-robin — every answer in a topic is shown before any repeats
-        reply = buildOfflineReply(query.trim(), fallbackUsageRef.current);
+        // Fallback mode: rotated, reload-proof round-robin
+        reply = nextOfflineReply(query);
       }
 
       const agentMessage: ChatMessage = {
@@ -252,7 +320,7 @@ export function FloatingAgent() {
       setMessages((prev) => [...prev, agentMessage]);
     } catch {
       // Offline fallback on network failure too — still rotated, never repeated
-      const reply = buildOfflineReply(query.trim(), fallbackUsageRef.current);
+      const reply = nextOfflineReply(query);
       setMessages((prev) => [
         ...prev,
         {
@@ -268,9 +336,11 @@ export function FloatingAgent() {
     }
   };
 
-  // SSR-safe: render markup on the server too (chat logic activates after hydration)
-  // so exported static HTML still contains the floating agent UI.
-  if (!mounted && typeof window === 'undefined') {
+  // Hydration-safe SSR: the first CLIENT render must match the server render
+  // exactly, so we return the same static trigger button here as on the server.
+  // (A `typeof window === 'undefined'` check here causes a hydration mismatch —
+  // React dev recovery then mounts a duplicate widget.)
+  if (!mounted) {
     // Server render: emit the trigger button statically
     return (
       <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 9999 }} className="flex items-center gap-3">
@@ -291,7 +361,6 @@ export function FloatingAgent() {
       </div>
     );
   }
-  if (!mounted) return null;
 
   return (
     <>
