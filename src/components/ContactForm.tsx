@@ -13,6 +13,42 @@ const PROJECT_TYPES = [
   'Other Custom Architecture',
 ];
 
+// FormSubmit routes every inquiry to the studio inbox as email.
+// First-ever submission triggers a one-time activation email — after the
+// team clicks "Activate" in that mail, all future briefs are delivered.
+const STUDIO_EMAIL = 'nightbuildstudio@gmail.com';
+const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${STUDIO_EMAIL}`;
+
+async function submitToFormSubmit(lead: {
+  name: string;
+  email: string;
+  project_type: string;
+  message: string;
+}): Promise<{ ok: boolean; needsActivation: boolean; error?: string }> {
+  try {
+    const res = await fetch(FORMSUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: lead.name,
+        email: lead.email,
+        project_type: lead.project_type,
+        message: lead.message,
+        _subject: `🌙 New Project Brief — ${lead.project_type}`,
+        _template: 'table',
+        _captcha: 'false',
+        _autoresponse: `Hi ${lead.name},\n\nNightbuild Studio received your project brief (${lead.project_type}). We review inquiries during midnight sprint hours and will reply to this email within 24 hours.\n\n— The Nightbuild Studio Team\n${STUDIO_EMAIL}`,
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    const message = String(data?.message || data?.error || '');
+    const needsActivation = /activat/i.test(message);
+    return { ok: res.ok && String(data?.success).toLowerCase() === 'true', needsActivation, error: message || undefined };
+  } catch (err: any) {
+    return { ok: false, needsActivation: false, error: err?.message || 'FormSubmit network error' };
+  }
+}
+
 export function ContactForm() {
   const searchParams = useSearchParams();
 
@@ -26,6 +62,7 @@ export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [submittedLeadId, setSubmittedLeadId] = useState<string | null>(null);
+  const [emailPendingActivation, setEmailPendingActivation] = useState<boolean>(false);
   const [blueprintActive, setBlueprintActive] = useState<boolean>(false);
   const [blueprintSummary, setBlueprintSummary] = useState<string>('');
 
@@ -81,19 +118,29 @@ export function ContactForm() {
     setErrorMessage('');
 
     try {
-      const result = await submitLead({
-        name: formData.name,
-        email: formData.email,
-        project_type: formData.project_type,
-        message: formData.message,
-      });
+      // Fire both channels: Supabase (database record) + FormSubmit (email to studio inbox)
+      const [result, formSubmitResult] = await Promise.all([
+        submitLead({
+          name: formData.name,
+          email: formData.email,
+          project_type: formData.project_type,
+          message: formData.message,
+        }),
+        submitToFormSubmit({
+          name: formData.name,
+          email: formData.email,
+          project_type: formData.project_type,
+          message: formData.message,
+        }),
+      ]);
 
-      if (result.success) {
+      if (result.success || formSubmitResult.ok) {
+        setEmailPendingActivation(formSubmitResult.needsActivation);
         setStatus('success');
         setSubmittedLeadId(result.leadId || 'NB-' + Date.now().toString().slice(-6));
       } else {
         setStatus('error');
-        setErrorMessage(result.error || 'Failed to submit inquiry. Please try again.');
+        setErrorMessage(result.error || formSubmitResult.error || 'Failed to submit inquiry. Please try again.');
       }
     } catch (err: any) {
       setStatus('error');
@@ -112,6 +159,7 @@ export function ContactForm() {
     setErrorMessage('');
     setSubmittedLeadId(null);
     setBlueprintActive(false);
+    setEmailPendingActivation(false);
   };
 
   if (status === 'success') {
@@ -131,10 +179,21 @@ export function ContactForm() {
         <p className="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed max-w-xl">
           Thank you, <strong className="text-[var(--ink)]">{formData.name}</strong>. Your project
           specification for a <span className="text-[var(--ink)]">{formData.project_type}</span> has
-          been saved to our database. Our team conducts architectural review during midnight sprint
-          hours and will reply to <span className="text-[var(--green)] underline">{formData.email}</span> within
-          24 hours.
+          been logged into the studio queue and emailed to the team. Our team conducts architectural
+          review during midnight sprint hours and will reply to{' '}
+          <span className="text-[var(--green)] underline">{formData.email}</span> within 24 hours.
         </p>
+
+        {emailPendingActivation && (
+          <div className="p-4 rounded-2xl bg-[var(--green-soft)]/40 border border-[var(--green)]/30 text-xs text-[var(--ink)] max-w-xl">
+            <p className="font-semibold text-[var(--green)]">First-time email setup pending</p>
+            <p className="mt-1 text-[var(--ink-soft)]">
+              One-time action for the team: open the <strong>nightbuildstudio@gmail.com</strong> inbox
+              and click <strong>“Activate Form”</strong> in the FormSubmit email so future briefs
+              land directly in the inbox. Your inquiry is already safe in the queue.
+            </p>
+          </div>
+        )}
 
         <div className="pt-4 hairline-t">
           <button
@@ -269,7 +328,8 @@ export function ContactForm() {
       </div>
 
       <p className="text-[11px] text-[var(--ink-soft)] pt-2">
-        * Stored securely in our Supabase database. We never share client or capstone proposals.
+        * Delivered straight to <strong>nightbuildstudio@gmail.com</strong> via FormSubmit and stored
+        in our Supabase database. We never share client or capstone proposals.
       </p>
     </form>
   );
