@@ -16,98 +16,249 @@ export default async function HomePage() {
       {/* 1. Fluid Hero Section with Ambient Glow */}
       <Hero />
 
-      {/* 2. Curated Open-Source Showcase */}
+      {/* 2. Selected Works Showcase */}
       <section className="w-full py-20 lg:py-28 hairline-b relative">
         <div className="site-container">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6">
             <div className="max-w-2xl">
               <div className="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold text-[var(--green)] mb-3">
-                <span>Open-Source Showcase</span>
+                <span>Selected Works</span>
               </div>
               <h2 className="display-heading text-3xl sm:text-5xl text-[var(--ink)] tracking-tight">
-                Builds we study. Standards we chase.
+                Crafted for founders & CS researchers.
               </h2>
             </div>
             <Link
               href="/projects"
               className="liquid-glass-pill inline-flex items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] hover:text-[var(--green)] transition-all duration-300 ease-apple rounded-full hover:scale-[1.03] active:scale-[0.97] self-start md:self-end"
             >
-              Browse Full Showcase
+              View Full Portfolio Archive
             </Link>
           </div>
 
-          {/* Liquid Glass Project Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project) => (
-              <article
-                key={project.id}
-                className="group flex flex-col justify-between liquid-glass hover:border-[var(--green)]/50 hover:scale-[1.015] hover:shadow-2xl transition-all duration-500 ease-apple p-7 rounded-3xl"
-              >
-                <div>
-                  {/* Thumbnail */}
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[var(--surface)] hairline-all mb-6">
-                    {project.thumbnail_url ? (
-                      <Image
-                        src={project.thumbnail_url}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 ease-apple group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-xs text-[var(--ink-soft)]">
-                        No Preview Available
+          {/* Liquid Glass Project Showcase */}
+          {featuredProjects.length === 1 ? (
+            <div className="space-y-8">
+              {featuredProjects.map((project) => (
+                <article
+                  key={project.id}
+                  className="group liquid-glass rounded-3xl p-6 sm:p-10 lg:p-12 hover:border-[var(--green)]/50 transition-all duration-500 ease-apple shadow-2xl relative overflow-hidden"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    {/* Visual Media Column */}
+                    <div className="lg:col-span-7 space-y-4">
+                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[var(--surface)] hairline-all shadow-xl group">
+                        {project.thumbnail_url ? (
+                          <Image
+                            src={project.thumbnail_url}
+                            alt={project.title}
+                            fill
+                            priority
+                            sizes="(max-width: 1024px) 100vw, 58vw"
+                            className="object-cover object-top transition-transform duration-700 ease-apple group-hover:scale-[1.02]"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-xs text-[var(--ink-soft)]">
+                            No Preview Available
+                          </div>
+                        )}
+                        <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
+                          <span className="liquid-glass-pill inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold text-[var(--green)] shadow-md">
+                            <span className="w-2 h-2 rounded-full bg-[var(--green)] animate-pulse" />
+                            <span>Flagship Production Build</span>
+                          </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
 
-                  {/* Metadata Tags */}
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] font-medium px-3.5 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                      {/* Multi-Viewport Thumbnails */}
+                      {project.screenshots && project.screenshots.length > 1 && (
+                        <div className="grid grid-cols-4 gap-2.5 pt-1">
+                          {project.screenshots.map((shot, i) => (
+                            <div
+                              key={shot}
+                              className="relative aspect-[16/10] rounded-xl overflow-hidden hairline-all bg-[var(--surface)] opacity-80 hover:opacity-100 transition-opacity"
+                            >
+                              <Image
+                                src={shot}
+                                alt={`View ${i + 1}`}
+                                fill
+                                sizes="120px"
+                                className="object-cover object-top"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Title & Hook */}
-                  <h3 className="display-heading text-xl sm:text-2xl text-[var(--ink)] group-hover:text-[var(--green)] transition-colors duration-300 mb-2">
-                    <Link href={`/projects/${project.slug}`}>
-                      {project.title}
-                    </Link>
-                  </h3>
-                  <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-6">
-                    {project.hook}
+                    {/* Content Column */}
+                    <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+                      <div className="space-y-4">
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-[11px] font-medium px-3.5 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Title & Hook */}
+                        <h3 className="display-heading text-2xl sm:text-4xl text-[var(--ink)] tracking-tight">
+                          <Link href={`/projects/${project.slug}`} className="hover:text-[var(--green)] transition-colors">
+                            {project.title}
+                          </Link>
+                        </h3>
+
+                        <p className="text-sm sm:text-base text-[var(--ink-soft)] leading-relaxed">
+                          {project.hook}
+                        </p>
+
+                        {/* Engineering Specs Bento */}
+                        <div className="grid grid-cols-3 gap-2.5 pt-2">
+                          <div className="p-3 rounded-2xl bg-[var(--surface)]/80 hairline-all text-center">
+                            <p className="font-mono text-xs font-bold text-[var(--green)]">0ms</p>
+                            <p className="text-[10px] text-[var(--ink-soft)] mt-0.5">Dexie Local</p>
+                          </div>
+                          <div className="p-3 rounded-2xl bg-[var(--surface)]/80 hairline-all text-center">
+                            <p className="font-mono text-xs font-bold text-[var(--ink)]">λ = 0.96</p>
+                            <p className="text-[10px] text-[var(--ink-soft)] mt-0.5">Decay Score</p>
+                          </div>
+                          <div className="p-3 rounded-2xl bg-[var(--surface)]/80 hairline-all text-center">
+                            <p className="font-mono text-xs font-bold text-[var(--green)]">Web Audio</p>
+                            <p className="text-[10px] text-[var(--ink-soft)] mt-0.5">DSP Sound</p>
+                          </div>
+                        </div>
+
+                        {/* Tech Stack Pills */}
+                        <div className="pt-2 flex flex-wrap gap-1.5">
+                          {project.tech_stack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="text-[10px] text-[var(--ink-soft)] font-mono px-2.5 py-1 rounded-full bg-[var(--surface)] hairline-all"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action Links */}
+                      <div className="pt-6 hairline-t flex flex-wrap items-center gap-3">
+                        {project.live_url && (
+                          <a
+                            href={project.live_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white bg-[var(--green)] hover:opacity-95 transition-all duration-300 ease-apple rounded-full shadow-lg shadow-[var(--green)]/20 hover:scale-[1.03] active:scale-[0.97]"
+                          >
+                            <span>Launch Live App</span>
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                        <Link
+                          href={`/projects/${project.slug}`}
+                          className="liquid-glass-pill inline-flex items-center gap-1.5 px-5 py-3 text-xs font-semibold text-[var(--ink)] hover:text-[var(--green)] transition-all rounded-full hover:scale-[1.02]"
+                        >
+                          <span>Read Case Study</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+
+              {/* Status Note: Next Builds in Pipeline */}
+              <div className="p-6 rounded-3xl bg-[var(--surface)]/50 hairline-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[var(--green)] animate-ping" />
+                  <p className="text-[var(--ink-soft)]">
+                    <strong className="text-[var(--ink)]">Next builds in development:</strong> We take on 2 client or CS capstone commissions per sprint cohort.
                   </p>
                 </div>
+                <Link
+                  href="/blueprint"
+                  className="font-semibold text-[var(--green)] hover:underline inline-flex items-center gap-1 shrink-0"
+                >
+                  <span>Scope Your Build on Blueprint</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProjects.map((project) => (
+                <article
+                  key={project.id}
+                  className="group flex flex-col justify-between liquid-glass hover:border-[var(--green)]/50 hover:scale-[1.015] hover:shadow-2xl transition-all duration-500 ease-apple p-7 rounded-3xl"
+                >
+                  <div>
+                    {/* Thumbnail */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[var(--surface)] hairline-all mb-6">
+                      {project.thumbnail_url ? (
+                        <Image
+                          src={project.thumbnail_url}
+                          alt={project.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 ease-apple group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-xs text-[var(--ink-soft)]">
+                          No Preview Available
+                        </div>
+                      )}
+                    </div>
 
-                {/* Card Footer: Tech Stack & Link */}
-                <div className="pt-5 hairline-t flex items-center justify-between">
-                  <div className="flex flex-wrap gap-1.5 max-w-[70%]">
-                    {project.tech_stack.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-[10px] text-[var(--ink-soft)] font-mono px-2.5 py-0.5 rounded-full bg-[var(--surface)]"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                    {/* Metadata Tags */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] font-medium px-3.5 py-1 bg-[var(--green-soft)] text-[var(--green)] rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Title & Hook */}
+                    <h3 className="display-heading text-xl sm:text-2xl text-[var(--ink)] group-hover:text-[var(--green)] transition-colors duration-300 mb-2">
+                      <Link href={`/projects/${project.slug}`}>
+                        {project.title}
+                      </Link>
+                    </h3>
+                    <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-6">
+                      {project.hook}
+                    </p>
                   </div>
-                  <a
-                    href={project.live_url || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-semibold text-[var(--green)] hover:underline"
-                  >
-                    Visit Original ↗
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+                  {/* Card Footer: Tech Stack & Link */}
+                  <div className="pt-5 hairline-t flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1.5 max-w-[70%]">
+                      {project.tech_stack.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[10px] text-[var(--ink-soft)] font-mono px-2.5 py-0.5 rounded-full bg-[var(--surface)]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="text-xs font-semibold text-[var(--ink)] group-hover:text-[var(--green)] transition-colors"
+                    >
+                      View Study
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

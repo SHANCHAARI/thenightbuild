@@ -36,9 +36,7 @@ STUDIO DETAILS:
   3. Vidya Sagar — Co-Founder & Backend / Platform Engineer (Cloud architectures, distributed systems, database schemas, algorithmic systems). LinkedIn: https://www.linkedin.com/in/vidyasagarcodes/
   4. Pusarla Manoj Kumar — Co-Founder & Cloud Infrastructure / Security Lead (Cloud security protocols, edge deployment automation, infrastructure hardening, CI/CD pipelines). LinkedIn: https://www.linkedin.com/in/pusarla-manoj-kumar-b3454a3b3
 - Flagship Artifacts & Case Studies:
-  1. Chronos: Distributed Kernel Visualizer — CS Capstone visual debugger for multi-core memory barrier races and Raft consensus.
-  2. Vesperal Atelier — High-performance commercial platform with sub-second edge rendering and zero templates.
-  3. Aetherform — In-browser Web Audio DSP synthesis engine with zero-jank Canvas shaders.
+  1. upGrade (https://upgrade-zeta.vercel.app/) — A Ritual Laboratory for Human Momentum: Offline-first habit engine & focus tracking instrument with Dexie reactive storage, streak forgiveness, zero-blue spectrometry, and tactile analytics. Developed by The Night Build Studio.
 - Studio Tools:
   - "The Midnight Architect" (/blueprint): An interactive scope and architecture blueprint estimator that calculates rapid sprint timelines (days to a couple weeks) and transparent investment brackets in Indian Rupees (INR / ₹) in real time.
 - Pricing & Delivery Guidelines:

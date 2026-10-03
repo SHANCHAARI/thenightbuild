@@ -50,7 +50,7 @@ An interactive, self-serve project scoping and architecture estimation engine:
 
 ### 2. 🦇 The Night Agent (Floating AI Technologist)
 An interactive AI assistant embedded as a floating nocturnal widget featuring the **black Batman bat insignia**:
-- **Powered by Google Gemini 3.6 Flash**: Grounded with deep context on our studio ethos, projects (*Chronos*, *Vesperal*, *Aetherform*), and engineers.
+- **Powered by Google Gemini 3.6 Flash**: Grounded with deep context on our studio ethos, flagship builds (*upGrade*), and engineers.
 - **Multi-Turn Context**: Remembers conversation history to discuss technical schemas, stack tradeoffs, and project timelines.
 - **Instant WhatsApp Handoff**: Connects visitors directly with our developers on WhatsApp in one click.
 

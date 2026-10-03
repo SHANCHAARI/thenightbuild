@@ -58,13 +58,22 @@ export function ProjectGrid({ initialProjects }: ProjectGridProps) {
 
       {/* Responsive Auto-Adjusting Liquid Glass Grid */}
       {filteredProjects.length === 0 ? (
-        <div className="py-24 text-center liquid-glass rounded-3xl p-8">
-          <p className="text-sm text-[var(--ink-soft)]">
-            No projects found under this classification tag.
+        <div className="py-20 text-center liquid-glass rounded-3xl p-8 space-y-4">
+          <p className="text-base font-semibold text-[var(--ink)]">
+            No builds found under &quot;{selectedTag}&quot;
           </p>
+          <p className="text-sm text-[var(--ink-soft)] max-w-md mx-auto">
+            We only showcase verified production releases. Additional client platforms and capstone builds are in active development.
+          </p>
+          <button
+            onClick={() => setSelectedTag('All')}
+            className="liquid-glass-pill inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold text-[var(--green)] hover:scale-105 transition-all"
+          >
+            Show All Active Releases
+          </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={filteredProjects.length === 1 ? 'grid grid-cols-1 max-w-2xl gap-8' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'}>
           {filteredProjects.map((project) => (
             <article
               key={project.id}

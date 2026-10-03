@@ -75,62 +75,15 @@ create policy "Allow authenticated admins to read leads"
 insert into public.projects (title, slug, hook, description, tags, tech_stack, thumbnail_url, video_embed_url, live_url, featured)
 values 
 (
-  'Aetherform Audio Engine',
-  'aetherform-audio-engine',
-  'Real-time generative spatial audio canvas for ambient producers & sound sculptors.',
-  'An unconventional web-based modular sound synthesizer and spatializer engineered during our midnight workshop. Built for music tech researchers and ambient electronic musicians, Aetherform lets creators position audio nodes in 3D binaural space with zero perceptible latency.',
-  array['Client Site', 'Interactive Web App'],
-  array['Next.js', 'Web Audio API', 'Three.js', 'Tailwind CSS', 'TypeScript'],
-  'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1600&auto=format&fit=crop',
-  'https://www.youtube.com/embed/dQw4w9WgXcQ',
-  'https://aetherform.thenightbuild.dev',
-  true
-),
-(
-  'Chronos: Distributed Kernel Visualizer',
-  'chronos-kernel-visualizer',
-  'Interactive visual debugger for multi-core memory barrier races & Raft consensus.',
-  'A CS Capstone build turned open-source benchmark. Chronos models hardware concurrency, cache coherence lines, and distributed state machines in a high-fidelity visual replay canvas that universities now use in advanced operating systems labs.',
-  array['Student Project', 'CS Capstone'],
-  array['Rust (Wasm)', 'React', 'Canvas API', 'TypeScript', 'Web Workers'],
-  'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1600&auto=format&fit=crop',
+  'upGrade',
+  'upgrade',
+  'A ritual laboratory for human momentum — offline-first habit engine & focus tracking instrument with Dexie reactive storage, streak forgiveness, and tactile analytics.',
+  'Conceived, designed, and coded by Nightbuild Studio, upGrade is an architectural instrument for daily life that replaces the predatory dopamine traps of conventional habit trackers with calm mathematical momentum. Built with an offline-first reactive Dexie (IndexedDB) architecture, zero-blue spectrometry (warm tactile linen by day, abyssal obsidian #050505 by night), rolling 28-day exponential decay scoring, procedural Web Audio acoustics, and seamless 1-click Supabase cloud backup.',
+  array['Client Site', 'Concept Build'],
+  array['React 19', 'TypeScript', 'Dexie.js (IndexedDB)', 'Tailwind CSS v4', 'Framer Motion', 'Supabase', 'Web Audio API', 'Vitest'],
+  '/projects/upgrade/hero-dashboard.png',
   null,
-  'https://chronos-kernel.thenightbuild.dev',
-  true
-),
-(
-  'Vesperal Atelier',
-  'vesperal-atelier',
-  'High-contrast digital archive and e-commerce artifact for a bespoke Tokyo ceramics kiln.',
-  'Rejected the cookie-cutter Shopify template for a Japanese ceramic craft atelier. We engineered a sculptural, tactile digital exhibition with custom GLSL lighting passes reacting to cursor proximity, reproducing the glazes of wood-fired pottery.',
-  array['Client Site'],
-  array['Next.js', 'WebGL', 'Shopify Storefront API', 'Tailwind CSS'],
-  'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=1600&auto=format&fit=crop',
-  null,
-  'https://vesperal.thenightbuild.dev',
-  true
-),
-(
-  'Komorebi Neural Shader Lab',
-  'komorebi-shader-lab',
-  'Procedural light-refraction playground exploring dynamic raymarched caustics.',
-  'An experimental concept build exploring procedural organic mathematics. Users construct GLSL fragment shaders using intuitive node graphs and render interactive lighting calculations in real-time at 60 FPS on mobile GPUs.',
-  array['Concept Build', 'Creative Coding'],
-  array['Three.js', 'GLSL', 'TypeScript', 'Vite', 'Framer Motion'],
-  'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop',
-  null,
-  'https://komorebi.thenightbuild.dev',
-  false
-),
-(
-  'Boreal Bioacoustics Sentinel',
-  'boreal-bioacoustics',
-  'Edge-AI avian migration telemetry platform monitoring sub-arctic boreal ecosystems.',
-  'A joint CS + Forestry senior capstone deployment. Pairs Solar LoRa edge sensors in northern Canada with a real-time spectrogram ingestion dashboard to identify rare songbird frequencies and early migratory anomalies.',
-  array['Student Project', 'CS Capstone'],
-  array['Next.js', 'Python FastAPI', 'WebSockets', 'Chart.js', 'Tailwind CSS'],
-  'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1600&auto=format&fit=crop',
-  null,
-  'https://boreal-sentinel.thenightbuild.dev',
+  'https://upgrade-zeta.vercel.app/',
   true
 );
+

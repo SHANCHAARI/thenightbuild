@@ -4,9 +4,9 @@ import { getProjects } from '@/lib/supabase';
 import { ProjectGrid } from '@/components/ProjectGrid';
 
 export const metadata: Metadata = {
-  title: 'Open-Source Showcase — Nightbuild Studio',
+  title: 'Portfolio & Archive — Nightbuild Studio',
   description:
-    'A curated showcase of genuinely useful open-source products and student capstones we study and admire — with full credit to their original creators.',
+    'Explore our live archive of bespoke client web platforms, interactive creative instruments, and CS capstone projects.',
 };
 
 export const revalidate = 60;
@@ -20,16 +20,14 @@ export default async function ProjectsPage() {
         {/* Expansive Header */}
         <div className="max-w-4xl mb-14 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--surface)] hairline-all text-xs font-semibold text-[var(--green)]">
-            <span>Open-Source Showcase</span>
+            <span>Workshop Archive</span>
           </div>
           <h1 className="display-title text-4xl sm:text-6xl lg:text-7xl text-[var(--ink)] tracking-tight">
-            Builds we study. Standards we chase.
+            Built with intention. Tested in production.
           </h1>
           <p className="text-base sm:text-xl text-[var(--ink-soft)] leading-relaxed">
-            A curated collection of genuinely useful, independently built open-source products —
-            from world-famous tools to standout student capstones from our own community. Every
-            entry credits its original creators and links to the real project. As our own builds
-            ship, they will graduate into this archive alongside them.
+            Every entry in this registry was designed and coded from scratch during midnight studio
+            sessions. Explore our live production deployments, architectural case studies, and engineering breakdowns.
           </p>
         </div>
 

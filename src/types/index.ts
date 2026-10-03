@@ -7,6 +7,8 @@ export interface Project {
   tags: string[];
   tech_stack: string[];
   thumbnail_url?: string;
+  screenshots?: string[];
+  highlights?: { title: string; desc: string }[];
   video_embed_url?: string | null;
   live_url?: string;
   featured?: boolean;
